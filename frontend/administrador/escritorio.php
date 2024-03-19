@@ -408,47 +408,19 @@ if($sentencia){
                             </div>
                         </div>
                       
-                        <div class="col-lg-5 col-md-12">
-                            <div class="card" style="min-height: 485px">
-                                <div class="card-header card-header-text">
-                                    <h4 class="card-title">Actividad reciente</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="streamline">
-                                        <?php
-                               
- $sentencia = $connect->prepare("SELECT servicio.idservc, plan.idplan, plan.foto, plan.nompla, servicio.ini, servicio.fin, clientes.idclie, clientes.numid, clientes.nomcli, clientes.apecli, clientes.naci, clientes.celu, clientes.correo, servicio.estod, servicio.fere FROM servicio INNER JOIN plan ON servicio.idplan = plan.idplan INNER JOIN clientes ON servicio.idclie = clientes.idclie order BY idservc DESC;");
- $sentencia->execute();
 
-$data =  array();
-if($sentencia){
-  while($r = $sentencia->fetchObject()){
-    $data[] = $r;
-  }
-}
-   ?>
-   <?php if(count($data)>0):?>
-    <?php foreach($data as $c):?>
-                                        <div class="sl-item sl-primary">
-                                            <div class="sl-content">
-                                                <small class="text-muted"><?php echo  $c->fere; ?></small>
-                                                <p><?php echo  $c->nompla; ?> añadido</p>
-                                            </div>
-                                        </div>
-                                        <?php endforeach; ?>
-                                        <?php else:?>
-        <!-- Warning Alert -->
-<div class="alert alert-warning" role="alert">
-  No se encontró ningún dato!
-</div>
 
-    <?php endif; ?>
-                                    </div>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
+
+                      
+
+
+
+
+
+
+
+
 
                     <div class="row">
                      <div class="col-lg-7 col-md-12">
@@ -525,16 +497,10 @@ if ($a->stock <= 0) {
                     </div>
                     <div class="row">
                          <div class="col-lg-6 col-md-12">
-                            <div class="card" style="min-height: 485px">
-                                <div class="card-header card-header-text">
-                                    <h4 class="card-title">Estadística de clientes</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div id="piechartcli"  class="tcentrado"></div>  
-                                </div>
-
-                            </div>
+                            
                         </div>
+
+
                         <div class="col-lg-6 col-md-12">
                             <div class="card" style="min-height: 485px">
                                 <div class="card-header card-header-text">
@@ -594,16 +560,7 @@ if($sentencia){
 
                     <div class="row">
                        <div class="col-lg-12 col-md-12">
-                            <div class="card" style="min-height: 485px">
-                                <div class="card-header card-header-text">
-                                    <h4 class="card-title">Venta de los servicios de hoy</h4>
-                                </div>
-                                <div class="card-content">
-                                 <div id="services_values" height="50" wight="50"></div>   
-                                </div>
-
-                            </div>
-                        </div> 
+                            
                     </div>
 
                     <div class="row">

@@ -344,7 +344,7 @@ ob_start();
     <label for="email">Metodo de pago<span class="text-danger">*</span></label>
     <select class="form-control" required name="txtmeto">
             <option value="">----------Seleccione------------</option>  
-            <option value="Yape">Yape</option>
+            <option value="Transferencia">Transferencia</option>
             <option value="Plin">Plin</option>
             <option value="Efectivo">Efectivo</option>
             <option value="Tarjeta">Tarjeta</option>                

@@ -362,7 +362,7 @@ if($sentencia){
     <select required class="form-control"  name="txtmeto">
         <option value="<?php echo  $f->meto  ; ?>"><?php echo  $f->meto  ; ?></option>
              <option value="">----------Seleccione------------</option>  
-            <option value="Yape">Yape</option>
+            <option value="Transferencia">Transferencia</option>
             <option value="Plin">Plin</option>
             <option value="Efectivo">Efectivo</option>
             <option value="Tarjeta">Tarjeta</option>          

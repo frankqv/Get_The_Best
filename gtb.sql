@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2024 at 12:09 PM
+-- Generation Time: Mar 19, 2024 at 10:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,9 +44,9 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`idv`, `user_id`, `idprod`, `name`, `price`, `quantity`) VALUES
 (1, 1, 1, 'Producto1', 10, 2),
-(3, 3, 3, 'Producto3', 25, 2),
 (4, 4, 4, 'Producto4', 13, 4),
-(5, 5, 5, 'Producto5', 18, 1);
+(5, 5, 5, 'Proteina 1kg', 39500, 1),
+(6, 2, 5, 'creatina 1Kg', 18000, 20);
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,6 @@ CREATE TABLE `cart_compra` (
 --
 
 INSERT INTO `cart_compra` (`idcarco`, `user_id`, `idprod`, `name`, `price`, `quantity`) VALUES
-(1, 2, 2, 'Producto2', 15, 3),
 (2, 3, 3, 'Producto3', 25, 2),
 (3, 4, 4, 'Producto4', 13, 4),
 (4, 5, 5, 'Producto5', 18, 1);
@@ -151,7 +150,8 @@ INSERT INTO `compra` (`idcomp`, `user_id`, `method`, `total_products`, `total_pr
 (2, 2, 'Efectivo', 'Producto2, Producto3', 70.00, '2024-03-14', 'Pendiente', 'Tipc'),
 (3, 3, 'Transferencia', 'Producto4, Producto5', 60.50, '2023-08-18', 'Pagado', 'Tipc'),
 (4, 4, 'Tarjeta', 'Producto2, Producto3, Producto5', 58.50, '2023-09-22', 'Pagado', 'Tipc'),
-(5, 5, 'Efectivo', 'Producto4', 12.50, '2023-10-25', 'Pagado', 'Tipc');
+(5, 5, 'Efectivo', 'Producto4', 12.50, '2023-10-25', 'Pagado', 'Tipc'),
+(6, 2, 'Transferencia', ', Producto2 ( 3 ), Producto4 ( 1 ), creatina 1Kg ( 1 )', 75500.00, '2024-03-19', 'Aceptado', 'Ticket');
 
 -- --------------------------------------------------------
 
@@ -175,7 +175,8 @@ INSERT INTO `gastos` (`idga`, `detall`, `total`, `fec`) VALUES
 (2, 'Gasto2', 20000.00, '2024-03-15'),
 (3, 'Gasto3', 15000.00, '2023-08-18'),
 (4, 'Gasto4', 18500.00, '2023-09-22'),
-(5, 'Gasto5', 22000.00, '2023-10-25');
+(5, 'Gasto5', 22000.00, '2023-10-25'),
+(6, 'COMPRA DE PRODUCTOS', 75500.00, '2024-03-19');
 
 -- --------------------------------------------------------
 
@@ -200,7 +201,10 @@ INSERT INTO `ingresos` (`iding`, `detalle`, `total`, `fec`) VALUES
 (3, 'Ingreso3', 28000.00, '2023-08-18'),
 (4, 'Ingreso4', 455000.00, '2023-09-22'),
 (5, 'Ingreso5', 50000.00, '2023-10-25'),
-(6, 'VENTA DE PRODUCTOS', 95000.00, '2024-03-15');
+(6, 'VENTA DE PRODUCTOS', 95000.00, '2024-03-15'),
+(7, 'VENTA DE PRODUCTOS', 50000.00, '2024-03-19'),
+(8, 'VENTA DE PRODUCTOS', 108500.00, '2024-03-19'),
+(9, 'VENTA DE PRODUCTOS', 5000000.00, '2024-03-19');
 
 -- --------------------------------------------------------
 
@@ -230,7 +234,10 @@ INSERT INTO `orders` (`idord`, `user_id`, `user_cli`, `method`, `total_products`
 (3, 3, 3, 'Transferencia', 'Producto4, Producto5', 65000.00, '2023-08-18', 'Pagado', 'Tipc'),
 (4, 4, 4, 'Tarjeta', 'Producto2, Producto3, Producto5', 58500.00, '2023-09-22', 'Pagado', 'Tipc'),
 (5, 5, 5, 'Efectivo', 'Producto4', 125000.00, '2023-10-25', 'Pagado', 'Tipc'),
-(6, 2, 2, 'Efectivo', ', Producto2 ( 3 )', 450000.00, '2024-03-15', 'Aceptado', 'Ticket');
+(6, 2, 2, 'Efectivo', ', Producto2 ( 3 )', 450000.00, '2024-03-15', 'Aceptado', 'Ticket'),
+(7, 3, 5, 'Transferencia', ', Producto3 ( 2 )', 50000.00, '2024-03-19', 'Aceptado', 'Ticket'),
+(8, 3, 5, 'Transferencia', ', creatina 1Kg ( 2 ), Producto1 ( 1 ), Producto4 ( 1 ), Producto3 ( 2 )', 108500.00, '2024-03-19', 'Aceptado', 'Ticket'),
+(9, 3, 5, 'Efectivo', ', Producto1 ( 500 )', 5000000.00, '2024-03-19', 'Aceptado', 'Ticket');
 
 -- --------------------------------------------------------
 
@@ -256,7 +263,8 @@ INSERT INTO `plan` (`idplan`, `foto`, `nompla`, `estp`, `prec`, `fere`) VALUES
 (2, 'plan2.jpg', 'Plan2', 'Inactivo', 49500.00, '2024-03-15 08:27:46'),
 (3, 'plan3.jpg', 'Plan3', 'Activo', 99500.00, '2024-03-15 08:27:46'),
 (4, 'plan4.jpg', 'Plan4', 'Activo', 129000.00, '2024-03-31 08:27:46'),
-(5, 'plan5.jpg', 'Plan5 Plus', 'Inactivo', 89500.00, '2024-03-15 08:27:46');
+(5, 'plan5.jpg', 'Plan5 Plus', 'Inactivo', 89500.00, '2024-03-15 08:27:46'),
+(6, '463824.gif', 'Plan 6 Un dia', 'Activo', 6000.00, '2024-03-19 20:35:44');
 
 -- --------------------------------------------------------
 
@@ -282,11 +290,11 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idprod`, `codba`, `nomprd`, `idcate`, `precio`, `stock`, `foto`, `venci`, `esta`, `fere`) VALUES
-(1, '12345678901234', 'Producto1', 1, 10000.00, 100, 'producto1.jpg', '2024-12-31', 'Activo', '2024-03-15 08:27:45'),
-(2, '56789012340123', 'Producto2', 2, 15000.00, 47, 'producto2.jpg', '2025-06-30', 'Activo', '2024-03-15 08:27:46'),
-(3, '67890123451234', 'Producto3', 3, 25000.00, 30, 'producto3.jpg', '2025-12-31', 'Activo', '2024-03-15 08:27:46'),
+(1, '12345678901234', 'Producto1', 1, 10000.00, 1000, 'producto1.jpg', '2024-12-31', 'Activo', '2024-03-15 08:27:45'),
+(2, '56789012340123', 'Producto2', 2, 15000.00, 50, 'producto2.jpg', '2025-06-30', 'Activo', '2024-03-15 08:27:46'),
+(3, '67890123451234', 'Producto3', 3, 25000.00, 26, 'producto3.jpg', '2025-12-31', 'Activo', '2024-03-15 08:27:46'),
 (4, '78901234562345', 'Producto4', 1, 12500.00, 80, 'producto4.jpg', '2024-10-31', 'Inactivo', '2024-03-15 08:27:46'),
-(5, '89012345673456', 'creatina 1Kg', 4, 18000.00, 60, '643826.jpg', '2024-08-31', 'Activo', '2024-03-15 08:27:46');
+(5, '89012345673456', 'creatina 1Kg', 4, 18000.00, 59, '643826.jpg', '2024-08-31', 'Activo', '2024-03-15 08:27:46');
 
 -- --------------------------------------------------------
 
@@ -370,12 +378,13 @@ INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `correo`, `clave`, `rol`, `fo
 (2, 'frank', 'frank', 'frank@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '1', '1', '1', '2023-06-15 07:23:20'),
 (3, 'holman', 'holman', 'holman@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2023-06-15 07:23:20'),
 (4, 'maria', 'maria', 'maria@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2', '2', '1', '2024-03-15 06:12:30'),
-(5, 'Juan Rodrigo García Martínez L', 'juan', 'juan@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
+(5, 'Juan Rodrigo García Martínez', 'juan', 'juan@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '2', '1', '1', '2023-07-20 09:15:45'),
 (7, 'Juan Jose Martínez Lee', 'juan3', 'juanM@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
 (9, 'leidy', 'leidy', 'leidy@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2024-03-19 07:55:46'),
 (10, 'leidy', 'leidy', 'leidy@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 08:00:21'),
 (11, 'leidy', 'leidy', 'leidy@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 08:01:23'),
-(12, 'isabel', 'isabel', 'isabel@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 08:24:43');
+(12, 'isabel', 'isabel', 'isabel@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 08:24:43'),
+(13, 'Nataly Martinez Garcia', 'nataly01', 'natalyMartinezGarcia@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 20:18:16');
 
 --
 -- Indexes for dumped tables
@@ -477,13 +486,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `idv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `cart_compra`
 --
 ALTER TABLE `cart_compra`
-  MODIFY `idcarco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idcarco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `categoria`
@@ -501,31 +510,31 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT for table `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `idcomp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idcomp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `gastos`
 --
 ALTER TABLE `gastos`
-  MODIFY `idga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `ingresos`
 --
 ALTER TABLE `ingresos`
-  MODIFY `iding` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `iding` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `idord` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idord` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `plan`
 --
 ALTER TABLE `plan`
-  MODIFY `idplan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idplan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `producto`
@@ -549,7 +558,7 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
@@ -586,7 +595,6 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `producto`
   ADD CONSTRAINT `fk_producto_categoria` FOREIGN KEY (`idcate`) REFERENCES `categoria` (`idcate`);
-
 
 --
 -- Constraints for table `servicio`

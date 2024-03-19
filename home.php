@@ -305,26 +305,7 @@
     <section class="contacto" id="contacto">
         <div class="contenido-seccion">
             <div class="contenedor-titulo">
-                <div class="numero">
-                    06
-                </div>
-                <div class="info">
-                    <span class="frase">LA MEJOR EXPERIENCIA</span>
-                    <h2>CONTACTO</h2>
-                </div>
-            </div>
-            <div class="fila">
-                <div class="col">
-                    <input type="text" placeholder="Ingrese Email">
-                </div>
-                <div class="col">
-                    <input type="text" placeholder="Ingrese Nombre">
-                </div>
-            </div>
-            <div class="mensaje">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Ingresa el Mensaje"></textarea>
-                <button>Enviar Mensaje</button>
-            </div>
+            
             <div class="fila-datos">
                 <div class="col">
                     <i class="fa-solid fa-location-dot"></i>

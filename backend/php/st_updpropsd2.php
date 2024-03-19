@@ -8,7 +8,7 @@
 
     try {
 
-        $query = "UPDATE usuarios SET  clave=:clave WHERE id=:id LIMIT 2";
+        $query = "UPDATE usuarios SET  clave=:clave WHERE id=:id LIMIT 1";
         $statement = $connect->prepare($query);
 
         $data = [
@@ -25,6 +25,7 @@ swal("¡Actualizado!", "Contraseña actualizada correctamente", "success").then(
             window.location = "../cuenta/perfil2.php";
         });
         </script>';
+
             exit(0);
         }
         else

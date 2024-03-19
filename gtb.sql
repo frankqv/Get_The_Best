@@ -587,6 +587,7 @@ ALTER TABLE `orders`
 ALTER TABLE `producto`
   ADD CONSTRAINT `fk_producto_categoria` FOREIGN KEY (`idcate`) REFERENCES `categoria` (`idcate`);
 
+
 --
 -- Constraints for table `servicio`
 --

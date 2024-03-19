@@ -1,82 +1,93 @@
 <?php
-session_start();
+// Verificar si se han recibido los datos del formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Incluir el archivo de conexión a la base de datos
+    require_once "C:/xampp/htdocs/gtb/backend/bd/ctconex.php";
 
-// Verificar si el usuario ya ha iniciado sesión, redirigirlo si es así
-if (isset($_SESSION['id'])) {
-    header('Location: administrador/home.php');
-    exit();
-}
+    // Obtener los datos del formulario
+    $nombre = $_POST["nombre"];
+    $usuario = $_POST["usuario"];
+    $correo = $_POST["correo"];
+    $clave = md5($_POST["clave"]); // Hash MD5 de la contraseña
 
-// Incluir el archivo de conexión a la base de datos
-include_once '../backend/php/ctconex.php';
+    // Valores por defecto
+    $rol = 2; // Rol de cliente
+    $foto = 1; // Foto por defecto
+    $estado = 1; // Estado activo por defecto
 
-// Mensaje de error por defecto
-$errMsg = '';
+    // Insertar los datos en la base de datos
+    $sql = "INSERT INTO usuarios (nombre, usuario, correo, clave, rol, foto, estado) VALUES (:nombre, :usuario, :correo, :clave, :rol, :foto, :estado)";
+    $stmt = $connect->prepare($sql);
 
-// Procesar el formulario de registro
-if (isset($_POST['registro_administrador'])) {
-    // Obtener datos del formulario
-    $nombre_usuario = $_POST['nombre_usuario'];
-    $contraseña = $_POST['contraseña'];
+    // Bind parameters
+    $stmt->bindParam(':nombre', $nombre);
+    $stmt->bindParam(':usuario', $usuario);
+    $stmt->bindParam(':correo', $correo);
+    $stmt->bindParam(':clave', $clave);
+    $stmt->bindParam(':rol', $rol);
+    $stmt->bindParam(':foto', $foto);
+    $stmt->bindParam(':estado', $estado);
 
-    // Validar los datos del formulario
-    if (!empty($nombre_usuario) && !empty($contraseña)) {
-        try {
-            // Preparar la consulta para insertar un nuevo administrador en la base de datos
-            $sql = "INSERT INTO administradores (nombre_usuario, contraseña) VALUES (:nombre_usuario, :contraseña)";
-            $stmt = $connect->prepare($sql);
-            $stmt->bindParam(':nombre_usuario', $nombre_usuario);
-            $stmt->bindParam(':contraseña', $contraseña);
-
-            // Ejecutar la consulta
-            $stmt->execute();
-
-            // Redirigir al administrador a la página de inicio de sesión
-            header('Location: login.php');
-            exit();
-        } catch (PDOException $e) {
-            // Si ocurre un error al ejecutar la consulta, mostrar un mensaje de error
-            $errMsg = 'Error al registrar el administrador. Inténtelo de nuevo.';
-        }
-    } else {
-        $errMsg = 'Por favor, complete todos los campos.';
+    try {
+        // Ejecutar la consulta preparada
+        $stmt->execute();
+        echo "Usuario registrado correctamente";
+    } catch (PDOException $e) {
+        echo "Error al registrar el usuario: " . $e->getMessage();
     }
 }
 ?>
 
-<!-- Estructura HTML del formulario de registro -->
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Encabezado omitido por brevedad -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario - GET THE BEST</title>
+    
+    <link rel="stylesheet" href="../backend/css/style.css">
+    <link rel="icon" type="image/png" href="../backend/img/favicon.png"/>
+
 </head>
 <body>
-    <div class="registro-wrapper">
-        <!-- Formulario de registro -->
-        <form class="registro-form" method="post">
-            <div class="form-group">
-                <label for="nombre_usuario">Nombre de usuario:</label>
-                <input type="text" name="nombre_usuario" required>
-            </div>
-            <div class="form-group">
-                <label for="contraseña">Contraseña:</label>
-                <input type="password" name="contraseña" required>
-            </div>
-            <div class="form-group">
-                <button type="submit" name="registro_administrador">Registrarse</button>
-            </div>
-        </form>
-        
-        <!-- Mostrar mensaje de error si es necesario -->
-        <?php if (!empty($errMsg)): ?>
-            <div style="color: #FF0000; text-align: center; font-size: 20px; font-weight: bold;">
-                <?php echo $errMsg; ?>
-            </div>
-        <?php endif; ?>
-        
-        <!-- Enlace para volver al inicio de sesión -->
-        <div class="volver-login">
-            <a href="login.php">Volver al inicio de sesión</a>
+    <div class="register-wrapper">
+        <div class="register-form">
+            <div class="title">Registro de Usuario</div>
+            <form action="registrar.php" method="post">
+                <div class="form-group">
+                    <div class="label-text">Nombre:</div>
+                    <input type="text" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <div class="label-text">Usuario:</div>
+                    <input type="text" name="usuario" required>
+                </div>
+                <div class="form-group">
+                    <div class="label-text">Correo electrónico:</div>
+                    <input type="email" name="correo" required>
+                </div>
+                <div class="form-group">
+                    <div class="label-text">Contraseña:</div>
+                    <input type="password" name="clave" required>
+                </div>
+                <div class="actions">
+                    <input type="submit" value="Registrarse" class="btn-submit">
+                </div>
+            </form>
         </div>
     </div>
 </body>
 </html>
+
+<script src="../backend/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="../backend/js/reenvio.js"></script>

@@ -82,10 +82,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="actions">
                     <input type="submit" value="Registrarse" class="btn-submit">
+                    <button onclick="window.location.href='../home.php'" class="btn-submit">Home</button>
                 </div>
             </form>
+
         </div>
     </div>
+    
 </body>
 </html>
 

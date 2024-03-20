@@ -31,14 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // Ejecutar la consulta preparada
         $stmt->execute();
-        echo "Usuario registrado correctamente";
+        echo " <h1 style='display: inline-block; font-size: 24px; color:#000000 ; background:#ffec00; border-radius: 6px; padding: 10px 20px;'> Usuario registrado correctamente </h1> ";
     } catch (PDOException $e) {
         echo "Error al registrar el usuario: " . $e->getMessage();
     }
 }
+
+
 ?>
-
-
 
 
 

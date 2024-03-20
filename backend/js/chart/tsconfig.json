@@ -12,14 +12,14 @@
     // "noUnusedParameters": true,
     /* Modules */
     "baseUrl": ".",
-    "module": "ESNext",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "rootDir": "src",
     "types": ["offscreencanvas"],
     /* Emit */
     "declaration": true,
-    "importsNotUsedAsValues": "error",
+    // "importsNotUsedAsValues": "error", // Comentado: Opción obsoleta
     "inlineSourceMap": true,
     "outDir": "dist",
     /* JavaScript Support */
@@ -29,7 +29,9 @@
     "allowSyntheticDefaultImports": true,
     /* Language and Environment */
     "target": "ES6",
-    "lib": ["es2018", "DOM"]
+    "lib": ["es2018", "DOM"],
+    "ignoreDeprecations": "5.0", // Nueva opción para silenciar errores de obsolescencia
+    "verbatimModuleSyntax": true // Nueva opción para reemplazar importsNotUsedAsValues
   },
   "typedocOptions": {
     "name": "Chart.js",

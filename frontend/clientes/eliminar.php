@@ -280,7 +280,7 @@ if($sentencia){
         <div class="col-md-6 col-lg-6">
    <div class="form-group">
     <label for="email">DNI del cliente<span class="text-danger">*</span></label>
-    <input type="text" maxlength="8" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" class="form-control"  value="<?php echo  $f->numid  ; ?>"  name="txtnum" readonly placeholder="DNI del cliente">
+    <input type="text" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" class="form-control"  value="<?php echo  $f->numid  ; ?>"  name="txtnum" readonly placeholder="DNI del cliente">
    <input type="hidden" value="<?php echo  $f->idclie  ; ?>" name="txtidc">
 </div>
   </div>
@@ -306,7 +306,7 @@ if($sentencia){
   <div class="col-md-6 col-lg-6">
       <div class="form-group">
     <label for="email">Celular del cliente<span class="text-danger">*</span></label>
-    <input type="text" readonly class="form-control"  maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" value="<?php echo  $f->celu  ; ?>" name="txtcel"  placeholder="Celular de la cliente">
+    <input type="text" readonly class="form-control"  maxlength="14" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" value="<?php echo  $f->celu  ; ?>" name="txtcel"  placeholder="Celular de la cliente">
    
 </div>
   </div>

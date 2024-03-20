@@ -361,9 +361,8 @@ else{
     <a class="btn btn-danger text-white" href="../servicio/eliminar.php?id=<?php echo  $g->idservc; ?>"><i class='material-icons' data-toggle='tooltip' title='crear'>cancel</i></a>
 
 
-    <a class="btn btn-secondary text-white" target="_blank" href="https://api.whatsapp.com/send/?phone=<?php echo  $g->celu; ?>&text=Hola🖐,%20FITNESS-GYM%20te%20recuerda%20que%20tu%20membresia%20finalizo%20espero%20poder%20contar%20contigo%20un%20mes%20mas%20te%20invito%20a%20renovar%20tu%20membresia%20a%0A%0Atravez%20de%20los%20siguientes%20canales:%20yape:%20955698018%20plin:%20922146446%20Efectivo%20Tarjeta%20LOS%20ESPERAMOS%0A%0A"><i class='material-icons' data-toggle='tooltip' title='crear'>smartphone</i></a>
+    <a class="btn btn-secondary text-white" target="_blank" href="https://api.whatsapp.com/send/?phone=57<?php echo  $g->celu; ?>&text=Hola🖐,%20FITNESS-GYM%20te%20recuerda%20que%20tu%20membresia%20finalizo%20espero%20poder%20contar%20contigo%20un%20mes%20mas%20te%20invito%20a%20renovar%20tu%20membresia%20a%0A%0Atravez%20de%20los%20siguientes%20canales:%20Nequi:%20955698018%20Nequi_Daviplanta:%20922146446%20Efectivo%20Tarjeta%20LOS%20ESPERAMOS%0A%0A"><i class='material-icons' data-toggle='tooltip' title='crear'>smartphone</i></a>
 
-    <a class="btn btn-dark text-white" href="../servicio/correo.php?id=<?php echo  $g->idservc; ?>"><i class='material-icons' data-toggle='tooltip' title='crear'>mail</i></a>
 
     <a class="btn btn-info text-white" href="../servicio/ticket.php?id=<?php echo  $g->idservc; ?>"><i class='material-icons' data-toggle='tooltip' title='crear'>print</i></a>
 

@@ -397,3 +397,5 @@ document.querySelector('#fechad').min = fechaMin;
     header('Location: ../erro404.php');
  } ?>
  <?php ob_end_flush(); ?>     
+
+ 

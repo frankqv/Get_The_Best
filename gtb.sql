@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2024 at 02:41 AM
+-- Generation Time: Mar 20, 2024 at 07:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -91,10 +91,12 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`idcate`, `nomca`, `estado`, `fere`) VALUES
-(1, 'Categoria1', 'Activo', '2024-03-15 08:27:45'),
-(2, 'Categoria2', 'Activo', '2024-03-15 08:27:46'),
-(3, 'Categoria3', 'Inactivo', '2024-03-15 08:27:46'),
-(4, 'Categoria4', 'Activo', '2024-03-15 08:27:46');
+(1, 'FITNESS', 'Activo', '2024-03-15 08:27:45'),
+(2, 'CROSSFIT', 'Activo', '2024-03-15 08:27:46'),
+(3, 'BOXING', 'Activo', '2024-03-15 08:27:46'),
+(4, 'ENDURANCE', 'Activo', '2024-03-15 08:27:46'),
+(5, 'YOGA', 'Inactivo', '2024-03-20 02:47:23'),
+(6, 'CARDIO', 'Inactivo', '2024-03-20 02:47:36');
 
 -- --------------------------------------------------------
 
@@ -119,8 +121,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`idclie`, `numid`, `nomcli`, `apecli`, `naci`, `correo`, `celu`, `estad`, `fere`) VALUES
-(1, '1231213', 'holman', 'grimaldo', '2019-03-13', 'grimaldox@gmail', '1231241', 'Activo', '2024-03-14 04:02:53'),
-(2, '78901234', 'Ana', 'Perez', '1990-05-25', 'ana@example.com', '321654987', 'Activo', '2024-03-14 04:30:20'),
+(1, '1231213', 'holman', 'grimaldo', '2019-03-13', 'grimaldox@gmail', '302616929', 'Activo', '2024-03-14 04:02:53'),
+(2, '78901234', 'Ana', 'Perez', '1990-05-25', 'ana@example.com', '302616992', 'Activo', '2024-03-14 04:30:20'),
 (3, '56789012', 'Pedro', 'Gomez', '1985-10-12', 'pedro@example.com', '654987321', 'Inactivo', '2023-08-18 12:45:10'),
 (4, '34567890', 'Laura', 'Lopez', '2000-03-08', 'laura@example.com', '789654123', 'Activo', '2024-09-12 15:20:30'),
 (5, '90123456', 'Carlos', 'Martinez', '1978-12-03', 'carlos@example.com', '159753456', 'Activo', '2023-10-25 18:10:15');
@@ -291,13 +293,44 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idprod`, `codba`, `nomprd`, `idcate`, `precio`, `stock`, `foto`, `venci`, `esta`, `fere`) VALUES
-(1, '12345678901234', 'Producto1', 1, 10000.00, 1000, 'producto1.jpg', '2024-12-31', 'Activo', '2024-03-15 08:27:45'),
-(2, '56789012340123', 'Producto2', 2, 15000.00, 50, 'producto2.jpg', '2025-06-30', 'Activo', '2024-03-15 08:27:46'),
-(3, '67890123451234', 'Producto3', 3, 25000.00, 26, 'producto3.jpg', '2025-12-31', 'Activo', '2024-03-15 08:27:46'),
-(4, '78901234562345', 'Producto4', 1, 12500.00, 80, 'producto4.jpg', '2024-10-31', 'Inactivo', '2024-03-15 08:27:46'),
-(5, '89012345673456', 'creatina 1Kg', 4, 18000.00, 59, '643826.jpg', '2024-08-31', 'Activo', '2024-03-15 08:27:46');
+(1, '12345678901234', 'JOTA PRO 1.500g', 1, 139900.00, 1000, '928925.jpg', '2024-12-31', 'Activo', '2024-03-15 08:27:45'),
+(2, '56789012340123', 'Rodilleras Deportivas', 2, 15000.00, 120, '116356.jpg', '2025-06-30', 'Activo', '2024-03-15 08:27:46'),
+(3, '67890123451234', 'FIGHTR Envolturas de mano 160 pulgadas', 3, 25000.00, 80, '889780.jpg', '2025-12-31', 'Activo', '2024-03-15 08:27:46'),
+(4, '78901234562345', 'Banda elastica', 1, 12500.00, 80, '31475.jpg', '2024-10-31', 'Activo', '2024-03-15 08:27:46'),
+(5, '89012345673456', 'creatina 1Kg', 4, 180000.00, 59, '832790.jpg', '2024-08-31', 'Activo', '2024-03-15 08:27:46');
 
 -- --------------------------------------------------------
+
+
+-- Variables
+SET @usuarios_cliente = (SELECT GROUP_CONCAT(usuario SEPARATOR ', ') FROM usuarios WHERE rol = 2);
+SET @usuarios_admin = (SELECT GROUP_CONCAT(usuario SEPARATOR ', ') FROM usuarios WHERE rol = 1);
+SET @grant_cliente = CONCAT('GRANT SELECT ON gtb.producto TO ', @usuarios_cliente);
+SET @grant_admin = CONCAT('GRANT INSERT, UPDATE, DELETE ON gtb.producto TO ', @usuarios_admin);
+
+-- Ejecutar GRANT
+PREPARE stmt FROM @grant_cliente;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+PREPARE stmt FROM @grant_admin;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+--
+-- Table structure for table `servicio`
+--
+
+
+
+
+
+
+
+
+
+
+
+
 
 --
 -- Table structure for table `servicio`
@@ -349,8 +382,8 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`idsett`, `nomem`, `ruc`, `decrp`, `corr`, `direc1`, `direc2`, `celu`, `foto`) VALUES
-(1, 'GetTheBest', '14356464564564', 'Get The Best', 'getthebest@gmail.com', 'direc1', '', '976756756', 'gtb1.png'),
-(2, 'gtb', '142134323436', 'Get The Best', 'info@gtb.com', 'Av. Ejemplo 123', 'Piso 2', '555558', 'gtb2.png');
+(1, 'GetTheBest', '14356464564564', 'Get The Best', 'getthebest@gmail.com', 'Cl. 152 #53A-05 Bogotá', 'Cl. 152 #53A-05 Bogotá', '302616929', '318116.jpg'),
+(2, 'gtb', '142134323436', 'Get The Best', 'info@gtb.com', 'Av. Evergreen Terrace #64-32', 'Av. Evergreen Terrace #64-32 p2', '302616929', '297618.jpg');
 
 -- --------------------------------------------------------
 
@@ -379,12 +412,15 @@ INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `correo`, `clave`, `rol`, `fo
 (2, 'frank', 'frank', 'frank@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2023-06-15 07:23:20'),
 (3, 'holman', 'holman', 'holman@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2023-06-15 07:23:20'),
 (4, 'maria', 'maria', 'maria@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2', '2', '1', '2024-03-15 06:12:30'),
-(5, 'Juan Rodrigo García Martínez', 'juan', 'juan@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
+(5, 'Juan Rodrigo García Martínez C', 'juan', 'juan@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
 (7, 'Juan Jose Martínez Lee', 'juan3', 'juanM@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
 (8, 'leidy', 'leidy', 'leidy@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2024-03-19 08:01:23'),
 (12, 'isabel', 'isabel', 'isabel@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 08:24:43'),
 (13, 'Nataly Martinez Garcia', 'nataly01', 'natalyMartinezGarcia@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 20:18:16'),
-(14, 'Juan Sebastian Lopez', 'jslopez', 'jslopez@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2024-03-20 00:40:43');
+(14, 'Juan Sebastian Lopez', 'jslopez', 'jslopez@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2024-03-20 00:40:43'),
+(15, 'Valentina Toscano', 'valent', 'valentinat1@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-20 03:12:55'),
+(16, 'Carolina Bustamante Quintana', 'carol', 'carolbq@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-20 05:24:16'),
+(17, 'Alexandra Patricia Morgan', 'alexmorgan', 'alexmorgan@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-20 05:33:32');
 
 --
 -- Indexes for dumped tables
@@ -498,7 +534,7 @@ ALTER TABLE `cart_compra`
 -- AUTO_INCREMENT for table `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idcate` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idcate` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `clientes`
@@ -558,7 +594,7 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -607,3 +643,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ALTER TABLE clientes MODIFY COLUMN celu VARCHAR(10);

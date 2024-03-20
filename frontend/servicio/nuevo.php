@@ -345,7 +345,7 @@ ob_start();
     <select class="form-control" required name="txtmeto">
             <option value="">----------Seleccione------------</option>  
             <option value="Transferencia">Transferencia</option>
-            <option value="Plin">Plin</option>
+            <option value="Nequi_Daviplata">Nequi_Daviplata</option>
             <option value="Efectivo">Efectivo</option>
             <option value="Tarjeta">Tarjeta</option>                
     </select>

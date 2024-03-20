@@ -319,7 +319,7 @@ if($sentencia){
     <div class="col-md-4 col-lg-4">
      <div class="form-group">
     <label for="email">Celular<span class="text-danger">*</span></label>
-    <input maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" type="text" value="<?php echo  $d->celu; ?>" class="form-control"  name="txtcel" placeholder="ejm: Celular">
+    <input maxlength="10" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" type="text" value="<?php echo  $d->celu; ?>" class="form-control"  name="txtcel" placeholder="ejm: Celular">
 </div>    
     </div> 
     </div>

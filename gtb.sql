@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2024 at 10:13 PM
+-- Generation Time: Mar 20, 2024 at 02:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,7 +45,7 @@ CREATE TABLE `cart` (
 INSERT INTO `cart` (`idv`, `user_id`, `idprod`, `name`, `price`, `quantity`) VALUES
 (1, 1, 1, 'Producto1', 10, 2),
 (4, 4, 4, 'Producto4', 13, 4),
-(5, 5, 5, 'Proteina 1kg', 39500, 1),
+(5, 5, 5, 'Producto5', 18, 1),
 (6, 2, 5, 'creatina 1Kg', 18000, 20);
 
 -- --------------------------------------------------------
@@ -70,7 +70,8 @@ CREATE TABLE `cart_compra` (
 INSERT INTO `cart_compra` (`idcarco`, `user_id`, `idprod`, `name`, `price`, `quantity`) VALUES
 (2, 3, 3, 'Producto3', 25, 2),
 (3, 4, 4, 'Producto4', 13, 4),
-(4, 5, 5, 'Producto5', 18, 1);
+(4, 5, 5, 'Producto5', 18, 1),
+(7, 2, 5, 'creatina 1Kg', 18000, 2);
 
 -- --------------------------------------------------------
 
@@ -261,10 +262,10 @@ CREATE TABLE `plan` (
 INSERT INTO `plan` (`idplan`, `foto`, `nompla`, `estp`, `prec`, `fere`) VALUES
 (1, 'plan1.jpg', 'Plan1', 'Activo', 89500.00, '2024-03-15 08:27:45'),
 (2, 'plan2.jpg', 'Plan2', 'Inactivo', 49500.00, '2024-03-15 08:27:46'),
-(3, 'plan3.jpg', 'Plan3', 'Activo', 99500.00, '2024-03-15 08:27:46'),
-(4, 'plan4.jpg', 'Plan4', 'Activo', 129000.00, '2024-03-31 08:27:46'),
-(5, 'plan5.jpg', 'Plan5 Plus', 'Inactivo', 89500.00, '2024-03-15 08:27:46'),
-(6, '463824.gif', 'Plan 6 Un dia', 'Activo', 6000.00, '2024-03-19 20:35:44');
+(3, 'plan2.jpg', 'Plan3', 'Activo', 99500.00, '2024-03-15 08:27:46'),
+(4, 'plan1.jpg', 'Plan4', 'Activo', 129000.00, '2024-03-31 08:27:46'),
+(5, 'plan3.jpg', 'Plan5 Plus', 'Inactivo', 89500.00, '2024-03-15 08:27:46'),
+(6, 'plan3.jpg', 'Plan 6 Un dia', 'Activo', 6000.00, '2024-03-19 20:35:44');
 
 -- --------------------------------------------------------
 
@@ -375,16 +376,15 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `correo`, `clave`, `rol`, `foto`, `estado`, `fere`) VALUES
 (1, 'administrador', 'admin', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '1', '1', '1', '2024-03-15 05:44:42'),
-(2, 'frank', 'frank', 'frank@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '1', '1', '1', '2023-06-15 07:23:20'),
+(2, 'frank', 'frank', 'frank@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2023-06-15 07:23:20'),
 (3, 'holman', 'holman', 'holman@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2023-06-15 07:23:20'),
 (4, 'maria', 'maria', 'maria@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2', '2', '1', '2024-03-15 06:12:30'),
-(5, 'Juan Rodrigo García Martínez', 'juan', 'juan@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '2', '1', '1', '2023-07-20 09:15:45'),
+(5, 'Juan Rodrigo García Martínez', 'juan', 'juan@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
 (7, 'Juan Jose Martínez Lee', 'juan3', 'juanM@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
-(9, 'leidy', 'leidy', 'leidy@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2024-03-19 07:55:46'),
-(10, 'leidy', 'leidy', 'leidy@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 08:00:21'),
-(11, 'leidy', 'leidy', 'leidy@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 08:01:23'),
+(8, 'leidy', 'leidy', 'leidy@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2024-03-19 08:01:23'),
 (12, 'isabel', 'isabel', 'isabel@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 08:24:43'),
-(13, 'Nataly Martinez Garcia', 'nataly01', 'natalyMartinezGarcia@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 20:18:16');
+(13, 'Nataly Martinez Garcia', 'nataly01', 'natalyMartinezGarcia@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 20:18:16'),
+(14, 'Juan Sebastian Lopez', 'jslopez', 'jslopez@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2024-03-20 00:40:43');
 
 --
 -- Indexes for dumped tables
@@ -492,7 +492,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `cart_compra`
 --
 ALTER TABLE `cart_compra`
-  MODIFY `idcarco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idcarco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `categoria`
@@ -558,7 +558,7 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

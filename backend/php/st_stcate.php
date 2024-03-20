@@ -1,71 +1,42 @@
 <?php  
 require_once('../../backend/bd/ctconex.php');
- if(isset($_POST['staddcate']))
- {
-  
-    $nomca=$_POST['txtnaame'];
-    $estado=$_POST['txtesta'];
+
+if(isset($_POST['staddcate'])) {
+    $nomca = $_POST['txtnaame'];
+    $estado = $_POST['txtesta'];
     
-  if(empty($nomca)){
-   $errMSG = "Please enter your inicio.";
-  }
+    if(empty($nomca)) {
+        $errMSG = "Por favor ingresa el nombre de la categoría.";
+    } else {
+        // Verificar si la categoría ya existe
+        $sql = "SELECT * FROM categoria WHERE nomca=:nomca";
+        $stmt = $connect->prepare($sql);
+        $stmt->bindParam(':nomca', $nomca);
+        $stmt->execute();
 
-  $stmt = "SELECT * FROM categoria  WHERE nomca='$nomca'";
+        if ($stmt->rowCount() > 0) {
+            echo '<script type="text/javascript">
+                    swal("Error!", "La categoría ya está registrada!", "error").then(function() {
+                        window.location = "../categoria/mostrar.php";
+                    });
+                </script>';
+        } else {
+            // Insertar la nueva categoría
+            $sql_insert = "INSERT INTO categoria (nomca, estado) VALUES (:nomca, :estado)";
+            $stmt_insert = $connect->prepare($sql_insert);
+            $stmt_insert->bindParam(':nomca', $nomca);
+            $stmt_insert->bindParam(':estado', $estado);
 
-
-   if(empty($nomca)) {
-             echo '<script type="text/javascript">
-swal("Error!", "Ya existe el registro a agregar!", "error").then(function() {
-            window.location = "../categoria/mostrar.php";
-        });
-        </script>';
-         }
-
-         else
-         {  // Validaremos primero que el document no exista
-            $sql="SELECT * FROM categoria  WHERE nomca='$nomca'";
-            
-
-            $stmt = $connect->prepare($sql);
-            $stmt->execute();
-
-            if ($stmt->fetchColumn() == 0) // Si $row_cnt es mayor de 0 es porque existe el registro
-            {
-                if(!isset($errMSG))
-  {
-   $stmt = $connect->prepare("INSERT INTO categoria(nomca, estado) VALUES(:nomca, :estado)");
-   $stmt->bindParam(':nomca',$nomca);
-   $stmt->bindParam(':estado',$estado);
-   if($stmt->execute())
-   {
-    echo '<script type="text/javascript">
-swal("¡Registrado!", "Agregado correctamente", "success").then(function() {
-            window.location = "../categoria/mostrar.php";
-        });
-        </script>';
-   }
-   else
-   {
-    $errMSG = "error while inserting....";
-   }
-
-  } 
+            if($stmt_insert->execute()) {
+                echo '<script type="text/javascript">
+                        swal("¡Registrado!", "Categoría agregada correctamente", "success").then(function() {
+                            window.location = "../categoria/mostrar.php";
+                        });
+                    </script>';
+            } else {
+                $errMSG = "Error al insertar la categoría.";
             }
-
-                else{
-
-                     echo '<script type="text/javascript">
-swal("Error!", "ya existe el registro!", "error").then(function() {
-            window.location = "../categoria/mostrar.php";
-        });
-        </script>';
-
- // if no error occured, continue ....
-
+        }
+    }
 }
-  
-
-  }
- 
- }
 ?>

@@ -31,16 +31,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // Ejecutar la consulta preparada
         $stmt->execute();
-        echo " <h1 style='display: inline-block; font-size: 24px; color:#000000 ; background:#ffec00; border-radius: 6px; padding: 10px 20px;'> Usuario registrado correctamente </h1> ";
+        echo "<h1 style='display: inline-block; font-size: 24px; color:#000000 ; background:#ffec00; border-radius: 6px; padding: 10px 20px;'>Usuario registrado correctamente</h1>";
     } catch (PDOException $e) {
-        echo "Error al registrar el usuario: " . $e->getMessage();
+        if ($e->errorInfo[1] == 1062) { // Verificar el código de error específico para duplicados
+            if (strpos($e->getMessage(), 'usuario') !== false) {
+                echo "<h1 style='display: inline-block; font-size: 24px; color:#ff0000 ; background:#ffffff; border-radius: 6px; padding: 10px 20px;'>El nombre de usuario ya está registrado</h1>";
+            } elseif (strpos($e->getMessage(), 'correo') !== false) {
+                echo "<h1 style='display: inline-block; font-size: 24px; color:#ff0000 ; background:#ffffff; border-radius: 6px; padding: 10px 20px;'>El correo electrónico ya está registrado</h1>";
+            } else {
+                echo "Error al registrar el usuario: " . $e->getMessage();
+            }
+        } else {
+            echo "Error al registrar el usuario: " . $e->getMessage();
+        }
     }
 }
-
-
 ?>
-
-
 
 
 

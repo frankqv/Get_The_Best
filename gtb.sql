@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2024 at 07:39 AM
+-- Generation Time: Mar 20, 2024 at 10:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,8 +45,7 @@ CREATE TABLE `cart` (
 INSERT INTO `cart` (`idv`, `user_id`, `idprod`, `name`, `price`, `quantity`) VALUES
 (1, 1, 1, 'Producto1', 10, 2),
 (4, 4, 4, 'Producto4', 13, 4),
-(5, 5, 5, 'Producto5', 18, 1),
-(6, 2, 5, 'creatina 1Kg', 18000, 20);
+(5, 5, 5, 'Producto5', 18, 1);
 
 -- --------------------------------------------------------
 
@@ -111,7 +110,7 @@ CREATE TABLE `clientes` (
   `apecli` text NOT NULL,
   `naci` date NOT NULL,
   `correo` varchar(30) NOT NULL,
-  `celu` char(9) NOT NULL,
+  `celu` varchar(10) DEFAULT NULL,
   `estad` varchar(15) NOT NULL,
   `fere` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -121,11 +120,12 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`idclie`, `numid`, `nomcli`, `apecli`, `naci`, `correo`, `celu`, `estad`, `fere`) VALUES
-(1, '1231213', 'holman', 'grimaldo', '2019-03-13', 'grimaldox@gmail', '302616929', 'Activo', '2024-03-14 04:02:53'),
-(2, '78901234', 'Ana', 'Perez', '1990-05-25', 'ana@example.com', '302616992', 'Activo', '2024-03-14 04:30:20'),
-(3, '56789012', 'Pedro', 'Gomez', '1985-10-12', 'pedro@example.com', '654987321', 'Inactivo', '2023-08-18 12:45:10'),
-(4, '34567890', 'Laura', 'Lopez', '2000-03-08', 'laura@example.com', '789654123', 'Activo', '2024-09-12 15:20:30'),
-(5, '90123456', 'Carlos', 'Martinez', '1978-12-03', 'carlos@example.com', '159753456', 'Activo', '2023-10-25 18:10:15');
+(1, '1231213', 'holman', 'grimaldo', '2019-03-20', 'grimaldox@gmail', '3026169292', 'Activo', '2024-03-14 04:02:53'),
+(2, '78901234', 'Ana', 'Perez', '1990-05-25', 'ana@example.com', '3026169292', 'Activo', '2024-03-14 04:30:20'),
+(3, '56789012', 'Pedro', 'Gomez', '1985-10-12', 'pedro@example.com', '3138678601', 'Inactivo', '2023-08-18 12:45:10'),
+(4, '34567890', 'Laura', 'Lopez', '2000-03-08', 'laura@example.com', '3002097407', 'Activo', '2024-09-12 15:20:30'),
+(5, '90123456', 'Carlos', 'Martinez', '1978-12-03', 'carlos@example.com', '3058250638', 'Activo', '2023-10-25 18:10:15'),
+(6, '10226032', 'Francisco Franco', 'Pacheco Diaz', '2002-12-03', 'mr.qnns008@gmail.com', '3222024365', 'Activo', '2024-03-20 06:56:47');
 
 -- --------------------------------------------------------
 
@@ -207,7 +207,9 @@ INSERT INTO `ingresos` (`iding`, `detalle`, `total`, `fec`) VALUES
 (6, 'VENTA DE PRODUCTOS', 95000.00, '2024-03-15'),
 (7, 'VENTA DE PRODUCTOS', 50000.00, '2024-03-19'),
 (8, 'VENTA DE PRODUCTOS', 108500.00, '2024-03-19'),
-(9, 'VENTA DE PRODUCTOS', 5000000.00, '2024-03-19');
+(9, 'VENTA DE PRODUCTOS', 5000000.00, '2024-03-19'),
+(10, 'VENTA DE PRODUCTOS', 372400.00, '2024-03-20'),
+(11, 'VENTA DE MEMBRESIAS', 89500.00, '2024-03-20');
 
 -- --------------------------------------------------------
 
@@ -240,7 +242,8 @@ INSERT INTO `orders` (`idord`, `user_id`, `user_cli`, `method`, `total_products`
 (6, 2, 2, 'Efectivo', ', Producto2 ( 3 )', 450000.00, '2024-03-15', 'Aceptado', 'Ticket'),
 (7, 3, 5, 'Transferencia', ', Producto3 ( 2 )', 50000.00, '2024-03-19', 'Aceptado', 'Ticket'),
 (8, 3, 5, 'Transferencia', ', creatina 1Kg ( 2 ), Producto1 ( 1 ), Producto4 ( 1 ), Producto3 ( 2 )', 108500.00, '2024-03-19', 'Aceptado', 'Ticket'),
-(9, 3, 5, 'Efectivo', ', Producto1 ( 500 )', 5000000.00, '2024-03-19', 'Aceptado', 'Ticket');
+(9, 3, 5, 'Efectivo', ', Producto1 ( 500 )', 5000000.00, '2024-03-19', 'Aceptado', 'Ticket'),
+(10, 2, 6, 'Efectivo', ', Banda elastica ( 1 ), Rodilleras Deportivas ( 1 ), FIGHTR Envolturas de mano 160 pulgadas ( 1 ), creatina 1Kg ( 1 ), JOTA PRO 1.500g ( 1 )', 372400.00, '2024-03-20', 'Aceptado', 'Ticket');
 
 -- --------------------------------------------------------
 
@@ -293,44 +296,13 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idprod`, `codba`, `nomprd`, `idcate`, `precio`, `stock`, `foto`, `venci`, `esta`, `fere`) VALUES
-(1, '12345678901234', 'JOTA PRO 1.500g', 1, 139900.00, 1000, '928925.jpg', '2024-12-31', 'Activo', '2024-03-15 08:27:45'),
-(2, '56789012340123', 'Rodilleras Deportivas', 2, 15000.00, 120, '116356.jpg', '2025-06-30', 'Activo', '2024-03-15 08:27:46'),
-(3, '67890123451234', 'FIGHTR Envolturas de mano 160 pulgadas', 3, 25000.00, 80, '889780.jpg', '2025-12-31', 'Activo', '2024-03-15 08:27:46'),
-(4, '78901234562345', 'Banda elastica', 1, 12500.00, 80, '31475.jpg', '2024-10-31', 'Activo', '2024-03-15 08:27:46'),
-(5, '89012345673456', 'creatina 1Kg', 4, 180000.00, 59, '832790.jpg', '2024-08-31', 'Activo', '2024-03-15 08:27:46');
+(1, '12345678901234', 'JOTA PRO 1.500g', 1, 139900.00, 999, '928925.jpg', '2024-12-31', 'Activo', '2024-03-15 08:27:45'),
+(2, '56789012340123', 'Rodilleras Deportivas', 2, 15000.00, 119, '116356.jpg', '2025-06-30', 'Activo', '2024-03-15 08:27:46'),
+(3, '67890123451234', 'FIGHTR Envolturas de mano 160 pulgadas', 3, 25000.00, 79, '889780.jpg', '2025-12-31', 'Activo', '2024-03-15 08:27:46'),
+(4, '78901234562345', 'Banda elastica', 1, 12500.00, 79, '31475.jpg', '2024-10-31', 'Activo', '2024-03-15 08:27:46'),
+(5, '89012345673456', 'creatina 1Kg', 4, 180000.00, 58, '832790.jpg', '2024-08-31', 'Activo', '2024-03-15 08:27:46');
 
 -- --------------------------------------------------------
-
-
--- Variables
-SET @usuarios_cliente = (SELECT GROUP_CONCAT(usuario SEPARATOR ', ') FROM usuarios WHERE rol = 2);
-SET @usuarios_admin = (SELECT GROUP_CONCAT(usuario SEPARATOR ', ') FROM usuarios WHERE rol = 1);
-SET @grant_cliente = CONCAT('GRANT SELECT ON gtb.producto TO ', @usuarios_cliente);
-SET @grant_admin = CONCAT('GRANT INSERT, UPDATE, DELETE ON gtb.producto TO ', @usuarios_admin);
-
--- Ejecutar GRANT
-PREPARE stmt FROM @grant_cliente;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
-PREPARE stmt FROM @grant_admin;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
---
--- Table structure for table `servicio`
---
-
-
-
-
-
-
-
-
-
-
-
-
 
 --
 -- Table structure for table `servicio`
@@ -353,11 +325,12 @@ CREATE TABLE `servicio` (
 --
 
 INSERT INTO `servicio` (`idservc`, `idplan`, `ini`, `fin`, `idclie`, `estod`, `meto`, `canc`, `fere`) VALUES
-(1, 1, '2024-03-15', '2024-03-16', 1, 'Activo', 'Metodo', 20000.00, '2024-03-15 08:27:46'),
+(1, 1, '2024-03-15', '2024-12-16', 1, 'Activo', 'Metodo', 20000.00, '2024-03-15 08:27:46'),
 (2, 2, '2024-03-15', '2024-03-16', 2, 'Inactivo', 'Metodo2', 30000.00, '2024-03-15 08:27:46'),
-(3, 3, '2023-08-18', '2023-08-19', 3, 'Activo', 'Metodo3', 40000.00, '2024-03-15 08:27:46'),
-(4, 4, '2023-09-22', '2023-09-23', 4, 'Activo', 'Metodo4', 35000.00, '2024-03-15 08:27:46'),
-(5, 5, '2023-10-25', '2023-10-26', 5, 'Inactivo', 'Metodo5', 25000.00, '2024-03-15 08:27:46');
+(3, 3, '2023-08-18', '2024-08-19', 3, 'Activo', 'Metodo3', 40000.00, '2024-03-15 08:27:46'),
+(4, 4, '2023-09-22', '2024-09-24', 4, 'Activo', 'Metodo4', 35000.00, '2024-03-15 08:27:46'),
+(5, 1, '2023-10-25', '2024-10-26', 5, 'Activo', 'Efectivo', 25000.00, '2024-03-15 08:27:46'),
+(6, 1, '2024-03-20', '2025-02-20', 6, 'Activo', 'Nequi_Daviplata', 250000.00, '2024-03-20 07:07:25');
 
 -- --------------------------------------------------------
 
@@ -373,7 +346,7 @@ CREATE TABLE `setting` (
   `corr` varchar(35) NOT NULL,
   `direc1` text NOT NULL,
   `direc2` text NOT NULL,
-  `celu` char(9) NOT NULL,
+  `celu` char(10) NOT NULL,
   `foto` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -382,8 +355,8 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`idsett`, `nomem`, `ruc`, `decrp`, `corr`, `direc1`, `direc2`, `celu`, `foto`) VALUES
-(1, 'GetTheBest', '14356464564564', 'Get The Best', 'getthebest@gmail.com', 'Cl. 152 #53A-05 Bogotá', 'Cl. 152 #53A-05 Bogotá', '302616929', '318116.jpg'),
-(2, 'gtb', '142134323436', 'Get The Best', 'info@gtb.com', 'Av. Evergreen Terrace #64-32', 'Av. Evergreen Terrace #64-32 p2', '302616929', '297618.jpg');
+(1, 'GetTheBest', '14356464564564', 'Get The Best', 'infogtb2@gmail.com', 'Cl. 152 #53A-05 Bogotá', 'Cl. 152 #53A-05 Bogotá', '302616929', '318116.jpg'),
+(2, 'gtb', '142134323436', 'Get The Best', 'infogtb2@gmail.com', 'Av. Evergreen Terrace #64-32', 'Av. Evergreen Terrace #64-32 p2', '302616929', '297618.jpg');
 
 -- --------------------------------------------------------
 
@@ -522,7 +495,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `idv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `cart_compra`
@@ -540,7 +513,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `idclie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idclie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `compra`
@@ -558,13 +531,13 @@ ALTER TABLE `gastos`
 -- AUTO_INCREMENT for table `ingresos`
 --
 ALTER TABLE `ingresos`
-  MODIFY `iding` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `iding` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `idord` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idord` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `plan`
@@ -582,7 +555,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT for table `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `idservc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idservc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `setting`
@@ -640,7 +613,8 @@ ALTER TABLE `servicio`
   ADD CONSTRAINT `fk_servicio_plan` FOREIGN KEY (`idplan`) REFERENCES `plan` (`idplan`);
 COMMIT;
 
+
+ALTER TABLE clientes MODIFY COLUMN celu VARCHAR(10);
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-ALTER TABLE clientes MODIFY COLUMN celu VARCHAR(10);

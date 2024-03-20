@@ -363,7 +363,7 @@ if($sentencia){
         <option value="<?php echo  $f->meto  ; ?>"><?php echo  $f->meto  ; ?></option>
              <option value="">----------Seleccione------------</option>  
             <option value="Transferencia">Transferencia</option>
-            <option value="Plin">Plin</option>
+            <option value="Nequi">Nequi</option>
             <option value="Efectivo">Efectivo</option>
             <option value="Tarjeta">Tarjeta</option>          
     </select>

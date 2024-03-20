@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2024 at 10:54 AM
+-- Generation Time: Mar 20, 2024 at 12:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -121,11 +121,12 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`idclie`, `numid`, `nomcli`, `apecli`, `naci`, `correo`, `celu`, `estad`, `fere`) VALUES
 (1, '1231213', 'holman', 'grimaldo', '2019-03-20', 'grimaldox@gmail', '3026169292', 'Activo', '2024-03-14 04:02:53'),
-(2, '78901234', 'Ana', 'Perez', '1990-05-25', 'ana@example.com', '3026169292', 'Activo', '2024-03-14 04:30:20'),
+(2, '78901234', 'Ana', 'Perez', '1990-05-25', 'ana@example.com', '3026169292', 'Inactivo', '2024-03-14 04:30:20'),
 (3, '56789012', 'Pedro', 'Gomez', '1985-10-12', 'pedro@example.com', '3138678601', 'Inactivo', '2023-08-18 12:45:10'),
 (4, '34567890', 'Laura', 'Lopez', '2000-03-08', 'laura@example.com', '3002097407', 'Activo', '2024-09-12 15:20:30'),
 (5, '90123456', 'Carlos', 'Martinez', '1978-12-03', 'carlos@example.com', '3058250638', 'Activo', '2023-10-25 18:10:15'),
-(6, '10226032', 'Francisco Franco', 'Pacheco Diaz', '2002-12-03', 'mr.qnns008@gmail.com', '3222024365', 'Activo', '2024-03-20 06:56:47');
+(6, '10226032', 'Francisco Franco', 'Pacheco Diaz', '2002-12-03', 'mr.qnns008@gmail.com', '3222024365', 'Activo', '2024-03-20 06:56:47'),
+(7, '12312131', 'Juan Rodrigo', 'Martinez Garcia', '2024-03-24', 'juan112@gmail.com', '3053622667', 'Activo', '2024-03-20 11:18:23');
 
 -- --------------------------------------------------------
 
@@ -209,7 +210,8 @@ INSERT INTO `ingresos` (`iding`, `detalle`, `total`, `fec`) VALUES
 (8, 'VENTA DE PRODUCTOS', 108500.00, '2024-03-19'),
 (9, 'VENTA DE PRODUCTOS', 5000000.00, '2024-03-19'),
 (10, 'VENTA DE PRODUCTOS', 372400.00, '2024-03-20'),
-(11, 'VENTA DE MEMBRESIAS', 89500.00, '2024-03-20');
+(11, 'VENTA DE MEMBRESIAS', 89500.00, '2024-03-20'),
+(12, 'VENTA DE MEMBRESIAS', 99500.00, '2024-03-20');
 
 -- --------------------------------------------------------
 
@@ -329,8 +331,9 @@ INSERT INTO `servicio` (`idservc`, `idplan`, `ini`, `fin`, `idclie`, `estod`, `m
 (2, 2, '2024-03-15', '2024-03-16', 2, 'Inactivo', 'Metodo2', 30000.00, '2024-03-15 08:27:46'),
 (3, 3, '2023-08-18', '2024-08-19', 3, 'Activo', 'Metodo3', 40000.00, '2024-03-15 08:27:46'),
 (4, 4, '2023-09-22', '2024-09-24', 4, 'Activo', 'Metodo4', 35000.00, '2024-03-15 08:27:46'),
-(5, 1, '2023-10-25', '2024-10-26', 5, 'Activo', 'Efectivo', 25000.00, '2024-03-15 08:27:46'),
-(6, 1, '2024-03-20', '2025-02-20', 6, 'Activo', 'Nequi_Daviplata', 250000.00, '2024-03-20 07:07:25');
+(5, 1, '2023-10-25', '2024-10-26', 5, 'Activo', 'Nequi', 25000.00, '2024-03-15 08:27:46'),
+(6, 1, '2024-03-20', '2025-02-20', 6, 'Activo', 'Nequi_Daviplata', 250000.00, '2024-03-20 07:07:25'),
+(7, 3, '2024-03-20', '2025-10-20', 7, 'Activo', 'Transferencia', 800585.00, '2024-03-20 11:20:52');
 
 -- --------------------------------------------------------
 
@@ -346,7 +349,7 @@ CREATE TABLE `setting` (
   `corr` varchar(35) NOT NULL,
   `direc1` text NOT NULL,
   `direc2` text NOT NULL,
-  `celu` char(10) NOT NULL,
+  `celu` varchar(10) DEFAULT NULL,
   `foto` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -385,7 +388,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `correo`, `clave`, `rol`, `fo
 (2, 'frank', 'frank', 'frank@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2023-06-15 07:23:20'),
 (3, 'holman', 'holman', 'holman@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2023-06-15 07:23:20'),
 (4, 'maria', 'maria', 'maria@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2', '2', '1', '2024-03-15 06:12:30'),
-(5, 'Juan Rodrigo García Martínez C', 'juan', 'juan@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
+(5, 'Juan Rodrigo García Martínez', 'juan', 'juan@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
 (7, 'Juan Jose Martínez Lee', 'juan3', 'juanM@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
 (8, 'leidy', 'leidy', 'leidy@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2024-03-19 08:01:23'),
 (12, 'isabel', 'isabel', 'isabel@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 08:24:43'),
@@ -513,7 +516,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `idclie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idclie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `compra`
@@ -531,7 +534,7 @@ ALTER TABLE `gastos`
 -- AUTO_INCREMENT for table `ingresos`
 --
 ALTER TABLE `ingresos`
-  MODIFY `iding` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `iding` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -555,7 +558,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT for table `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `idservc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idservc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `setting`
@@ -613,8 +616,6 @@ ALTER TABLE `servicio`
   ADD CONSTRAINT `fk_servicio_plan` FOREIGN KEY (`idplan`) REFERENCES `plan` (`idplan`);
 COMMIT;
 
-
-ALTER TABLE clientes MODIFY COLUMN celu VARCHAR(10);
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

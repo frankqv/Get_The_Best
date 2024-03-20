@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2024 at 12:46 PM
+-- Generation Time: Mar 20, 2024 at 09:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,29 +21,77 @@ SET time_zone = "+00:00";
 --
 -- Database: `gtb`
 --
+DROP DATABASE IF EXISTS `gtb`;
 CREATE DATABASE IF NOT EXISTS `gtb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `gtb`;
+
+DELIMITER $$
+--
+-- Procedures
+--
+DROP PROCEDURE IF EXISTS `InsertarCategoria`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarCategoria` (IN `p_nomca` TEXT, IN `p_estado` VARCHAR(15))   BEGIN
+    INSERT INTO categoria (nomca, estado, fere)
+    VALUES (p_nomca, p_estado, CURRENT_TIMESTAMP());
+END$$
+
+DROP PROCEDURE IF EXISTS `InsertarCliente`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarCliente` (IN `p_numid` CHAR(8), IN `p_nomcli` TEXT, IN `p_apecli` TEXT, IN `p_naci` DATE, IN `p_correo` VARCHAR(30), IN `p_celu` CHAR(9), IN `p_estad` VARCHAR(15))   BEGIN
+    INSERT INTO clientes (numid, nomcli, apecli, naci, correo, celu, estad, fere)
+    VALUES (p_numid, p_nomcli, p_apecli, p_naci, p_correo, p_celu, p_estad, CURRENT_TIMESTAMP());
+END$$
+
+DROP PROCEDURE IF EXISTS `InsertarOrden`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarOrden` (IN `p_user_id` INT, IN `p_user_cli` INT, IN `p_method` TEXT, IN `p_total_products` TEXT, IN `p_total_price` DECIMAL(10,2), IN `p_placed_on` TEXT, IN `p_payment_status` TEXT, IN `p_tipc` TEXT)   BEGIN
+    INSERT INTO orders (user_id, user_cli, method, total_products, total_price, placed_on, payment_status, tipc)
+    VALUES (p_user_id, p_user_cli, p_method, p_total_products, p_total_price, p_placed_on, p_payment_status, p_tipc);
+END$$
+
+DROP PROCEDURE IF EXISTS `InsertarProducto`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarProducto` (IN `p_codba` CHAR(14), IN `p_nomprd` TEXT, IN `p_idcate` INT, IN `p_precio` DECIMAL(10,2), IN `p_stock` INT, IN `p_foto` TEXT, IN `p_venci` DATE, IN `p_esta` VARCHAR(15))   BEGIN
+    INSERT INTO producto (codba, nomprd, idcate, precio, stock, foto, venci, esta, fere)
+    VALUES (p_codba, p_nomprd, p_idcate, p_precio, p_stock, p_foto, p_venci, p_esta, CURRENT_TIMESTAMP());
+END$$
+
+DROP PROCEDURE IF EXISTS `InsertarUsuario`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarUsuario` (IN `p_nombre` VARCHAR(30), IN `p_usuario` VARCHAR(15), IN `p_correo` VARCHAR(30), IN `p_clave` TEXT, IN `p_rol` CHAR(1), IN `p_foto` TEXT, IN `p_estado` CHAR(1))   BEGIN
+    INSERT INTO usuarios (nombre, usuario, correo, clave, rol, foto, estado, fere)
+    VALUES (p_nombre, p_usuario, p_correo, p_clave, p_rol, p_foto, p_estado, CURRENT_TIMESTAMP());
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cart`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `cart` (
-  `idv` int(11) NOT NULL,
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE IF NOT EXISTS `cart` (
+  `idv` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `idprod` int(11) NOT NULL,
   `name` text NOT NULL,
   `price` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`idv`),
+  KEY `user_id` (`user_id`),
+  KEY `idprod` (`idprod`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `cart`
+--
+
+TRUNCATE TABLE `cart`;
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`idv`, `user_id`, `idprod`, `name`, `price`, `quantity`) VALUES
+INSERT DELAYED IGNORE INTO `cart` (`idv`, `user_id`, `idprod`, `name`, `price`, `quantity`) VALUES
 (1, 1, 1, 'Producto1', 10, 2),
 (4, 4, 4, 'Producto4', 13, 4),
 (5, 5, 5, 'Producto5', 18, 1);
@@ -52,21 +101,32 @@ INSERT INTO `cart` (`idv`, `user_id`, `idprod`, `name`, `price`, `quantity`) VAL
 --
 -- Table structure for table `cart_compra`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `cart_compra` (
-  `idcarco` int(11) NOT NULL,
+DROP TABLE IF EXISTS `cart_compra`;
+CREATE TABLE IF NOT EXISTS `cart_compra` (
+  `idcarco` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `idprod` int(11) NOT NULL,
   `name` text NOT NULL,
   `price` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`idcarco`),
+  KEY `fk_cart_compra_usuario` (`user_id`),
+  KEY `fk_cart_compra_producto` (`idprod`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `cart_compra`
+--
+
+TRUNCATE TABLE `cart_compra`;
 --
 -- Dumping data for table `cart_compra`
 --
 
-INSERT INTO `cart_compra` (`idcarco`, `user_id`, `idprod`, `name`, `price`, `quantity`) VALUES
+INSERT DELAYED IGNORE INTO `cart_compra` (`idcarco`, `user_id`, `idprod`, `name`, `price`, `quantity`) VALUES
 (2, 3, 3, 'Producto3', 25, 2),
 (3, 4, 4, 'Producto4', 13, 4),
 (4, 5, 5, 'Producto5', 18, 1),
@@ -77,19 +137,28 @@ INSERT INTO `cart_compra` (`idcarco`, `user_id`, `idprod`, `name`, `price`, `qua
 --
 -- Table structure for table `categoria`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `categoria` (
-  `idcate` int(11) NOT NULL,
+DROP TABLE IF EXISTS `categoria`;
+CREATE TABLE IF NOT EXISTS `categoria` (
+  `idcate` int(11) NOT NULL AUTO_INCREMENT,
   `nomca` text NOT NULL,
   `estado` varchar(15) NOT NULL,
-  `fere` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `fere` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`idcate`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `categoria`
+--
+
+TRUNCATE TABLE `categoria`;
 --
 -- Dumping data for table `categoria`
 --
 
-INSERT INTO `categoria` (`idcate`, `nomca`, `estado`, `fere`) VALUES
+INSERT DELAYED IGNORE INTO `categoria` (`idcate`, `nomca`, `estado`, `fere`) VALUES
 (1, 'FITNESS', 'Activo', '2024-03-15 08:27:45'),
 (2, 'CROSSFIT', 'Activo', '2024-03-15 08:27:46'),
 (3, 'BOXING', 'Activo', '2024-03-15 08:27:46'),
@@ -102,9 +171,12 @@ INSERT INTO `categoria` (`idcate`, `nomca`, `estado`, `fere`) VALUES
 --
 -- Table structure for table `clientes`
 --
+-- Creation: Mar 20, 2024 at 11:41 AM
+--
 
-CREATE TABLE `clientes` (
-  `idclie` int(11) NOT NULL,
+DROP TABLE IF EXISTS `clientes`;
+CREATE TABLE IF NOT EXISTS `clientes` (
+  `idclie` int(11) NOT NULL AUTO_INCREMENT,
   `numid` char(8) NOT NULL,
   `nomcli` text NOT NULL,
   `apecli` text NOT NULL,
@@ -112,14 +184,20 @@ CREATE TABLE `clientes` (
   `correo` varchar(30) NOT NULL,
   `celu` varchar(10) DEFAULT NULL,
   `estad` varchar(15) NOT NULL,
-  `fere` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `fere` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`idclie`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `clientes`
+--
+
+TRUNCATE TABLE `clientes`;
 --
 -- Dumping data for table `clientes`
 --
 
-INSERT INTO `clientes` (`idclie`, `numid`, `nomcli`, `apecli`, `naci`, `correo`, `celu`, `estad`, `fere`) VALUES
+INSERT DELAYED IGNORE INTO `clientes` (`idclie`, `numid`, `nomcli`, `apecli`, `naci`, `correo`, `celu`, `estad`, `fere`) VALUES
 (1, '1231213', 'holman', 'grimaldo', '2019-03-20', 'grimaldox@gmail', '3026169292', 'Activo', '2024-03-14 04:02:53'),
 (2, '78901234', 'Ana', 'Perez', '1990-05-25', 'ana@example.com', '3026169292', 'Inactivo', '2024-03-14 04:30:20'),
 (3, '56789012', 'Pedro', 'Gomez', '1985-10-12', 'pedro@example.com', '3138678601', 'Inactivo', '2023-08-18 12:45:10'),
@@ -133,23 +211,33 @@ INSERT INTO `clientes` (`idclie`, `numid`, `nomcli`, `apecli`, `naci`, `correo`,
 --
 -- Table structure for table `compra`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `compra` (
-  `idcomp` int(11) NOT NULL,
+DROP TABLE IF EXISTS `compra`;
+CREATE TABLE IF NOT EXISTS `compra` (
+  `idcomp` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `method` text NOT NULL,
   `total_products` text NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
   `placed_on` text NOT NULL,
   `payment_status` text NOT NULL,
-  `tipc` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `tipc` text NOT NULL,
+  PRIMARY KEY (`idcomp`),
+  KEY `fk_compra_usuario` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `compra`
+--
+
+TRUNCATE TABLE `compra`;
 --
 -- Dumping data for table `compra`
 --
 
-INSERT INTO `compra` (`idcomp`, `user_id`, `method`, `total_products`, `total_price`, `placed_on`, `payment_status`, `tipc`) VALUES
+INSERT DELAYED IGNORE INTO `compra` (`idcomp`, `user_id`, `method`, `total_products`, `total_price`, `placed_on`, `payment_status`, `tipc`) VALUES
 (1, 1, 'Tarjeta', 'Producto1', 20.00, '2024-03-15', 'Pagado', 'Tipc'),
 (2, 2, 'Efectivo', 'Producto2, Producto3', 70.00, '2024-03-14', 'Pendiente', 'Tipc'),
 (3, 3, 'Transferencia', 'Producto4, Producto5', 60.50, '2023-08-18', 'Pagado', 'Tipc'),
@@ -162,19 +250,28 @@ INSERT INTO `compra` (`idcomp`, `user_id`, `method`, `total_products`, `total_pr
 --
 -- Table structure for table `gastos`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `gastos` (
-  `idga` int(11) NOT NULL,
+DROP TABLE IF EXISTS `gastos`;
+CREATE TABLE IF NOT EXISTS `gastos` (
+  `idga` int(11) NOT NULL AUTO_INCREMENT,
   `detall` text NOT NULL,
   `total` decimal(10,2) NOT NULL,
-  `fec` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `fec` text NOT NULL,
+  PRIMARY KEY (`idga`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `gastos`
+--
+
+TRUNCATE TABLE `gastos`;
 --
 -- Dumping data for table `gastos`
 --
 
-INSERT INTO `gastos` (`idga`, `detall`, `total`, `fec`) VALUES
+INSERT DELAYED IGNORE INTO `gastos` (`idga`, `detall`, `total`, `fec`) VALUES
 (1, 'Gasto1', 10000.00, '2024-03-15'),
 (2, 'Gasto2', 20000.00, '2024-03-15'),
 (3, 'Gasto3', 15000.00, '2023-08-18'),
@@ -187,19 +284,28 @@ INSERT INTO `gastos` (`idga`, `detall`, `total`, `fec`) VALUES
 --
 -- Table structure for table `ingresos`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `ingresos` (
-  `iding` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ingresos`;
+CREATE TABLE IF NOT EXISTS `ingresos` (
+  `iding` int(11) NOT NULL AUTO_INCREMENT,
   `detalle` text NOT NULL,
   `total` decimal(10,2) NOT NULL,
-  `fec` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `fec` text NOT NULL,
+  PRIMARY KEY (`iding`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `ingresos`
+--
+
+TRUNCATE TABLE `ingresos`;
 --
 -- Dumping data for table `ingresos`
 --
 
-INSERT INTO `ingresos` (`iding`, `detalle`, `total`, `fec`) VALUES
+INSERT DELAYED IGNORE INTO `ingresos` (`iding`, `detalle`, `total`, `fec`) VALUES
 (1, 'Ingreso1', 30000.00, '2024-03-15'),
 (2, 'Ingreso2', 35000.00, '2024-03-15'),
 (3, 'Ingreso3', 28000.00, '2023-08-18'),
@@ -218,9 +324,12 @@ INSERT INTO `ingresos` (`iding`, `detalle`, `total`, `fec`) VALUES
 --
 -- Table structure for table `orders`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `orders` (
-  `idord` int(11) NOT NULL,
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
+  `idord` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `user_cli` int(11) NOT NULL,
   `method` text NOT NULL,
@@ -228,14 +337,22 @@ CREATE TABLE `orders` (
   `total_price` decimal(10,2) NOT NULL,
   `placed_on` text NOT NULL,
   `payment_status` text NOT NULL,
-  `tipc` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `tipc` text NOT NULL,
+  PRIMARY KEY (`idord`),
+  KEY `user_cli` (`user_cli`),
+  KEY `fk_orders_usuario` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `orders`
+--
+
+TRUNCATE TABLE `orders`;
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`idord`, `user_id`, `user_cli`, `method`, `total_products`, `total_price`, `placed_on`, `payment_status`, `tipc`) VALUES
+INSERT DELAYED IGNORE INTO `orders` (`idord`, `user_id`, `user_cli`, `method`, `total_products`, `total_price`, `placed_on`, `payment_status`, `tipc`) VALUES
 (1, 1, 1, 'Tarjeta', 'Producto1', 20000.00, '2024-03-15', 'Pagado', 'Tipc'),
 (2, 2, 2, 'Efectivo', 'Producto2, Producto3', 70000.00, '2024-03-14', 'Pendiente', 'Tipc'),
 (3, 3, 3, 'Transferencia', 'Producto4, Producto5', 65000.00, '2023-08-18', 'Pagado', 'Tipc'),
@@ -252,21 +369,30 @@ INSERT INTO `orders` (`idord`, `user_id`, `user_cli`, `method`, `total_products`
 --
 -- Table structure for table `plan`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `plan` (
-  `idplan` int(11) NOT NULL,
+DROP TABLE IF EXISTS `plan`;
+CREATE TABLE IF NOT EXISTS `plan` (
+  `idplan` int(11) NOT NULL AUTO_INCREMENT,
   `foto` text NOT NULL,
   `nompla` text NOT NULL,
   `estp` varchar(15) NOT NULL,
   `prec` decimal(10,2) NOT NULL,
-  `fere` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `fere` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`idplan`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `plan`
+--
+
+TRUNCATE TABLE `plan`;
 --
 -- Dumping data for table `plan`
 --
 
-INSERT INTO `plan` (`idplan`, `foto`, `nompla`, `estp`, `prec`, `fere`) VALUES
+INSERT DELAYED IGNORE INTO `plan` (`idplan`, `foto`, `nompla`, `estp`, `prec`, `fere`) VALUES
 (1, 'plan1.jpg', 'Plan1', 'Activo', 89500.00, '2024-03-15 08:27:45'),
 (2, 'plan2.jpg', 'Plan2', 'Inactivo', 49500.00, '2024-03-15 08:27:46'),
 (3, 'plan2.jpg', 'Plan3', 'Activo', 99500.00, '2024-03-15 08:27:46'),
@@ -279,9 +405,12 @@ INSERT INTO `plan` (`idplan`, `foto`, `nompla`, `estp`, `prec`, `fere`) VALUES
 --
 -- Table structure for table `producto`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `producto` (
-  `idprod` int(11) NOT NULL,
+DROP TABLE IF EXISTS `producto`;
+CREATE TABLE IF NOT EXISTS `producto` (
+  `idprod` int(11) NOT NULL AUTO_INCREMENT,
   `codba` char(14) NOT NULL,
   `nomprd` text NOT NULL,
   `idcate` int(11) NOT NULL,
@@ -290,14 +419,21 @@ CREATE TABLE `producto` (
   `foto` text NOT NULL,
   `venci` date NOT NULL,
   `esta` varchar(15) NOT NULL,
-  `fere` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `fere` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`idprod`),
+  KEY `idcate` (`idcate`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `producto`
+--
+
+TRUNCATE TABLE `producto`;
 --
 -- Dumping data for table `producto`
 --
 
-INSERT INTO `producto` (`idprod`, `codba`, `nomprd`, `idcate`, `precio`, `stock`, `foto`, `venci`, `esta`, `fere`) VALUES
+INSERT DELAYED IGNORE INTO `producto` (`idprod`, `codba`, `nomprd`, `idcate`, `precio`, `stock`, `foto`, `venci`, `esta`, `fere`) VALUES
 (1, '12345678901234', 'JOTA PRO 1.500g', 1, 139900.00, 999, '928925.jpg', '2024-12-31', 'Activo', '2024-03-15 08:27:45'),
 (2, '56789012340123', 'Rodilleras Deportivas', 2, 15000.00, 119, '116356.jpg', '2025-06-30', 'Activo', '2024-03-15 08:27:46'),
 (3, '67890123451234', 'FIGHTR Envolturas de mano 160 pulgadas', 3, 25000.00, 79, '889780.jpg', '2025-12-31', 'Activo', '2024-03-15 08:27:46'),
@@ -309,9 +445,12 @@ INSERT INTO `producto` (`idprod`, `codba`, `nomprd`, `idcate`, `precio`, `stock`
 --
 -- Table structure for table `servicio`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `servicio` (
-  `idservc` int(11) NOT NULL,
+DROP TABLE IF EXISTS `servicio`;
+CREATE TABLE IF NOT EXISTS `servicio` (
+  `idservc` int(11) NOT NULL AUTO_INCREMENT,
   `idplan` int(11) NOT NULL,
   `ini` date NOT NULL,
   `fin` date NOT NULL,
@@ -319,14 +458,22 @@ CREATE TABLE `servicio` (
   `estod` varchar(15) NOT NULL,
   `meto` text NOT NULL,
   `canc` decimal(10,2) NOT NULL,
-  `fere` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `fere` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`idservc`),
+  KEY `idplan` (`idplan`),
+  KEY `idclie` (`idclie`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `servicio`
+--
+
+TRUNCATE TABLE `servicio`;
 --
 -- Dumping data for table `servicio`
 --
 
-INSERT INTO `servicio` (`idservc`, `idplan`, `ini`, `fin`, `idclie`, `estod`, `meto`, `canc`, `fere`) VALUES
+INSERT DELAYED IGNORE INTO `servicio` (`idservc`, `idplan`, `ini`, `fin`, `idclie`, `estod`, `meto`, `canc`, `fere`) VALUES
 (1, 1, '2024-03-15', '2024-12-16', 1, 'Activo', 'Metodo', 20000.00, '2024-03-15 08:27:46'),
 (2, 2, '2024-03-15', '2024-03-16', 2, 'Inactivo', 'Metodo2', 30000.00, '2024-03-15 08:27:46'),
 (3, 3, '2023-08-18', '2024-08-19', 3, 'Activo', 'Metodo3', 40000.00, '2024-03-15 08:27:46'),
@@ -340,9 +487,12 @@ INSERT INTO `servicio` (`idservc`, `idplan`, `ini`, `fin`, `idclie`, `estod`, `m
 --
 -- Table structure for table `setting`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `setting` (
-  `idsett` int(11) NOT NULL,
+DROP TABLE IF EXISTS `setting`;
+CREATE TABLE IF NOT EXISTS `setting` (
+  `idsett` int(11) NOT NULL AUTO_INCREMENT,
   `nomem` text NOT NULL,
   `ruc` char(14) NOT NULL,
   `decrp` text NOT NULL,
@@ -350,14 +500,20 @@ CREATE TABLE `setting` (
   `direc1` text NOT NULL,
   `direc2` text NOT NULL,
   `celu` varchar(10) DEFAULT NULL,
-  `foto` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `foto` text NOT NULL,
+  PRIMARY KEY (`idsett`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `setting`
+--
+
+TRUNCATE TABLE `setting`;
 --
 -- Dumping data for table `setting`
 --
 
-INSERT INTO `setting` (`idsett`, `nomem`, `ruc`, `decrp`, `corr`, `direc1`, `direc2`, `celu`, `foto`) VALUES
+INSERT DELAYED IGNORE INTO `setting` (`idsett`, `nomem`, `ruc`, `decrp`, `corr`, `direc1`, `direc2`, `celu`, `foto`) VALUES
 (1, 'GetTheBest', '14356464564564', 'Get The Best', 'infogtb2@gmail.com', 'Cl. 152 #53A-05 Bogotá', 'Cl. 152 #53A-05 Bogotá', '302616929', '318116.jpg'),
 (2, 'gtb', '142134323436', 'Get The Best', 'infogtb2@gmail.com', 'Av. Evergreen Terrace #64-32', 'Av. Evergreen Terrace #64-32 p2', '302616929', '297618.jpg');
 
@@ -366,9 +522,12 @@ INSERT INTO `setting` (`idsett`, `nomem`, `ruc`, `decrp`, `corr`, `direc1`, `dir
 --
 -- Table structure for table `usuarios`
 --
+-- Creation: Mar 15, 2024 at 08:27 AM
+--
 
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) NOT NULL,
   `usuario` varchar(15) NOT NULL,
   `correo` varchar(30) NOT NULL,
@@ -376,19 +535,25 @@ CREATE TABLE `usuarios` (
   `rol` char(1) NOT NULL,
   `foto` text NOT NULL,
   `estado` char(1) NOT NULL,
-  `fere` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `fere` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `usuarios`
+--
+
+TRUNCATE TABLE `usuarios`;
 --
 -- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `correo`, `clave`, `rol`, `foto`, `estado`, `fere`) VALUES
+INSERT DELAYED IGNORE INTO `usuarios` (`id`, `nombre`, `usuario`, `correo`, `clave`, `rol`, `foto`, `estado`, `fere`) VALUES
 (1, 'administrador', 'admin', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '1', '1', '1', '2024-03-15 05:44:42'),
 (2, 'frank', 'frank', 'frank@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2023-06-15 07:23:20'),
 (3, 'holman', 'holman', 'holman@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2023-06-15 07:23:20'),
 (4, 'maria', 'maria', 'maria@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2', '2', '1', '2024-03-15 06:12:30'),
-(5, 'Juan Rodrigo García Martínez', 'juan', 'juan@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '2', '1', '2023-07-20 09:15:45'),
+(5, 'Juan Rodrigo García Martínez', 'juan', 'juan@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
 (7, 'Juan Jose Martínez Lee', 'juan3', 'juanM@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2023-07-20 09:15:45'),
 (8, 'leidy', 'leidy', 'leidy@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '1', '1', '2024-03-19 08:01:23'),
 (12, 'isabel', 'isabel', 'isabel@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-19 08:24:43'),
@@ -397,180 +562,6 @@ INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `correo`, `clave`, `rol`, `fo
 (15, 'Valentina Toscano', 'valent', 'valentinat1@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-20 03:12:55'),
 (16, 'Carolina Bustamante Quintana', 'carol', 'carolbq@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-20 05:24:16'),
 (17, 'Alexandra Patricia Morgan', 'alexmorgan', 'alexmorgan@gmail.com', '202cb962ac59075b964b07152d234b70', '2', '1', '1', '2024-03-20 05:33:32');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `cart`
---
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`idv`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `idprod` (`idprod`);
-
---
--- Indexes for table `cart_compra`
---
-ALTER TABLE `cart_compra`
-  ADD PRIMARY KEY (`idcarco`),
-  ADD KEY `fk_cart_compra_usuario` (`user_id`),
-  ADD KEY `fk_cart_compra_producto` (`idprod`);
-
---
--- Indexes for table `categoria`
---
-ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`idcate`);
-
---
--- Indexes for table `clientes`
---
-ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`idclie`);
-
---
--- Indexes for table `compra`
---
-ALTER TABLE `compra`
-  ADD PRIMARY KEY (`idcomp`),
-  ADD KEY `fk_compra_usuario` (`user_id`);
-
---
--- Indexes for table `gastos`
---
-ALTER TABLE `gastos`
-  ADD PRIMARY KEY (`idga`);
-
---
--- Indexes for table `ingresos`
---
-ALTER TABLE `ingresos`
-  ADD PRIMARY KEY (`iding`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`idord`),
-  ADD KEY `user_cli` (`user_cli`),
-  ADD KEY `fk_orders_usuario` (`user_id`);
-
---
--- Indexes for table `plan`
---
-ALTER TABLE `plan`
-  ADD PRIMARY KEY (`idplan`);
-
---
--- Indexes for table `producto`
---
-ALTER TABLE `producto`
-  ADD PRIMARY KEY (`idprod`),
-  ADD KEY `idcate` (`idcate`);
-
---
--- Indexes for table `servicio`
---
-ALTER TABLE `servicio`
-  ADD PRIMARY KEY (`idservc`),
-  ADD KEY `idplan` (`idplan`),
-  ADD KEY `idclie` (`idclie`);
-
---
--- Indexes for table `setting`
---
-ALTER TABLE `setting`
-  ADD PRIMARY KEY (`idsett`);
-
---
--- Indexes for table `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-  MODIFY `idv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `cart_compra`
---
-ALTER TABLE `cart_compra`
-  MODIFY `idcarco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `categoria`
---
-ALTER TABLE `categoria`
-  MODIFY `idcate` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `clientes`
---
-ALTER TABLE `clientes`
-  MODIFY `idclie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `compra`
---
-ALTER TABLE `compra`
-  MODIFY `idcomp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `gastos`
---
-ALTER TABLE `gastos`
-  MODIFY `idga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `ingresos`
---
-ALTER TABLE `ingresos`
-  MODIFY `iding` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `idord` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `plan`
---
-ALTER TABLE `plan`
-  MODIFY `idplan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `producto`
---
-ALTER TABLE `producto`
-  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `servicio`
---
-ALTER TABLE `servicio`
-  MODIFY `idservc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `setting`
---
-ALTER TABLE `setting`
-  MODIFY `idsett` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -614,8 +605,13 @@ ALTER TABLE `producto`
 ALTER TABLE `servicio`
   ADD CONSTRAINT `fk_servicio_cliente` FOREIGN KEY (`idclie`) REFERENCES `clientes` (`idclie`),
   ADD CONSTRAINT `fk_servicio_plan` FOREIGN KEY (`idplan`) REFERENCES `plan` (`idplan`);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+ALTER TABLE usuarios
+ADD CONSTRAINT unique_correo UNIQUE (correo);

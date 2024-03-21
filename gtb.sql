@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2024 at 06:51 AM
+-- Generation Time: Mar 21, 2024 at 08:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -162,11 +162,12 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`idclie`, `numid`, `nomcli`, `apecli`, `naci`, `correo`, `celu`, `estad`, `fere`) VALUES
-(1, '1231213', 'holman', 'grimaldo', '2019-03-13', 'grimaldox@gmail', '3125634789', 'Activo', '2024-03-14 04:02:53'),
-(2, '78901234', 'Ana', 'Perez', '1990-05-25', 'ana@example.com', '3216549872', 'Activo', '2024-03-14 04:30:20'),
+(1, '1231213', 'holman', 'grimaldo', '2019-03-13', 'grimaldox@gmail.com', '3026169292', 'Activo', '2024-03-14 04:02:53'),
+(2, '78901234', 'Ana', 'Perez', '1990-05-25', 'ana@example.com', '3157229001', 'Activo', '2024-03-14 04:30:20'),
 (3, '56789012', 'Pedro', 'Gomez', '1985-10-12', 'pedro@example.com', '3123456789', 'Inactivo', '2023-08-18 12:45:10'),
-(4, '34567890', 'Laura', 'Lopez', '2000-03-08', 'laura@example.com', '3123456777', 'Activo', '2024-09-12 15:20:30'),
-(5, '90123456', 'Carlos', 'Martinez', '1978-12-03', 'carlos@example.com', '300209744', 'Activo', '2023-10-25 18:10:15');
+(4, '34567890', 'Laura', 'Lopez', '2000-03-08', 'laura@example.com', '3163993481', 'Activo', '2024-09-12 15:20:30'),
+(5, '90123456', 'Carlos', 'Martinez', '1978-12-03', 'carlos@example.com', '3136497264', 'Activo', '2023-10-25 18:10:15'),
+(6, '10232432', 'Joel Sebastian', 'Penagos Ortiz Trinidad de la Cruz', '0000-00-00', 'jsPenagos@gmail.com', '3058250638', 'Activo', '2024-03-21 06:22:37');
 
 -- --------------------------------------------------------
 
@@ -251,7 +252,8 @@ INSERT INTO `ingresos` (`iding`, `detalle`, `total`, `fec`) VALUES
 (6, 'VENTA DE PRODUCTOS', 95000.00, '2024-03-15'),
 (7, 'VENTA DE PRODUCTOS', 50000.00, '2024-03-19'),
 (8, 'VENTA DE PRODUCTOS', 108500.00, '2024-03-19'),
-(9, 'VENTA DE PRODUCTOS', 5000000.00, '2024-03-19');
+(9, 'VENTA DE PRODUCTOS', 5000000.00, '2024-03-19'),
+(10, 'VENTA DE MEMBRESIAS', 89500.00, '2023-04-05');
 
 -- --------------------------------------------------------
 
@@ -308,12 +310,11 @@ CREATE TABLE `plan` (
 --
 
 INSERT INTO `plan` (`idplan`, `foto`, `nompla`, `estp`, `prec`, `fere`) VALUES
-(1, 'plan1.jpg', 'Plan1', 'Activo', 89500.00, '2024-03-15 08:27:45'),
-(2, 'plan2.jpg', 'Plan2', 'Inactivo', 49500.00, '2024-03-15 08:27:46'),
-(3, 'plan2.jpg', 'Plan3', 'Activo', 99500.00, '2024-03-15 08:27:46'),
-(4, 'plan1.jpg', 'Plan4', 'Activo', 129000.00, '2024-03-31 08:27:46'),
-(5, 'plan3.jpg', 'Plan5 Plus', 'Inactivo', 89500.00, '2024-03-15 08:27:46'),
-(6, 'plan3.jpg', 'Plan 6 Un dia', 'Activo', 6000.00, '2024-03-19 20:35:44');
+(1, '734337.jpg', 'PLAN BASICO', 'Activo', 89500.00, '2024-03-15 08:27:45'),
+(2, 'plan2.jpg', ' PLAN STANDARD', 'Activo', 49500.00, '2024-03-15 08:27:46'),
+(3, 'plan2.jpg', 'PLAN PLATINO', 'Activo', 99500.00, '2024-03-15 08:27:46'),
+(4, 'plan1.jpg', 'PLAN PREMIUM', 'Activo', 129000.00, '2024-03-31 08:27:46'),
+(6, 'plan1.jpg', 'PLAN PREMIUM 2', 'Inactivo', 6000.00, '2024-03-19 20:35:44');
 
 -- --------------------------------------------------------
 
@@ -374,7 +375,8 @@ INSERT INTO `servicio` (`idservc`, `idplan`, `ini`, `fin`, `idclie`, `estod`, `m
 (2, 2, '2024-03-15', '2024-05-17', 2, 'Inactivo', 'Metodo2', 30000.00, '2024-03-15 08:27:46'),
 (3, 3, '2023-08-18', '2024-04-06', 3, 'Activo', 'Metodo3', 40000.00, '2024-03-15 08:27:46'),
 (4, 4, '2023-09-22', '2025-02-21', 4, 'Activo', 'Nequi', 35000.00, '2024-03-15 08:27:46'),
-(5, 5, '2023-10-25', '2023-10-26', 5, 'Inactivo', 'Metodo5', 25000.00, '2024-03-15 08:27:46');
+(5, 6, '2023-10-25', '2024-04-04', 5, 'Activo', 'Transferencia', 25000.00, '2024-03-15 08:27:46'),
+(6, 3, '2023-04-05', '2024-04-04', 6, 'Activo', 'Tarjeta', 560000.00, '2024-03-21 06:28:16');
 
 -- --------------------------------------------------------
 
@@ -560,7 +562,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `idclie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idclie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `compra`
@@ -578,7 +580,7 @@ ALTER TABLE `gastos`
 -- AUTO_INCREMENT for table `ingresos`
 --
 ALTER TABLE `ingresos`
-  MODIFY `iding` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `iding` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -602,7 +604,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT for table `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `idservc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idservc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `setting`

@@ -292,6 +292,8 @@ if ($g->idplan =='1') {
     echo '<span class="badge badge-primary">PLAN BASICO</span>';
 }elseif ($g->idplan =='2') {
     echo '<span class="badge badge-warning">PLAN STANDARD</span>';
+}elseif ($g->idplan == '3') {
+    echo '<span class="badge badge-success">PLAN PLATINO</span>';
 }
 else{
     // code...

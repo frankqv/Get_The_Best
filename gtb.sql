@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2024 at 08:15 PM
+-- Generation Time: Mar 21, 2024 at 08:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -347,7 +347,8 @@ INSERT INTO `producto` (`idprod`, `codba`, `nomprd`, `idcate`, `precio`, `stock`
 (2, '56789012340123', ' Rodillera Elastica De Compresión Deportiva', 2, 15000.00, 50, '341946.jpg', '2025-06-30', 'Activo', '2024-03-15 08:27:46'),
 (3, '67890123451234', 'Vendas de boxeo', 3, 25000.00, 26, '680339.jpg', '2025-12-31', 'Activo', '2024-03-15 08:27:46'),
 (4, '78901234562345', 'Banda elastica', 1, 12500.00, 80, '579718.jpg', '2024-10-31', 'Activo', '2024-03-15 08:27:46'),
-(5, '89012345673456', 'creatina 1Kg', 4, 18000.00, 59, '956303.jpg', '2024-08-31', 'Activo', '2024-03-15 08:27:46');
+(5, '89012345673456', 'creatina 1Kg', 4, 18000.00, 59, '956303.jpg', '2024-08-31', 'Activo', '2024-03-15 08:27:46'),
+(6, 'H7YY7MINAndznR', 'JOTA PRO', 1, 229500.00, 1000, '953110.jpg', '2025-04-01', 'Activo', '2024-03-21 19:19:20');
 
 -- --------------------------------------------------------
 
@@ -600,7 +601,7 @@ ALTER TABLE `plan`
 -- AUTO_INCREMENT for table `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `servicio`

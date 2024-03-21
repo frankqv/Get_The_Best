@@ -26,42 +26,7 @@ CREATE DATABASE IF NOT EXISTS `gtb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb
 USE `gtb`;
 
 DELIMITER $$
---
--- Procedures
---
-DROP PROCEDURE IF EXISTS `InsertarCategoria`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarCategoria` (IN `p_nomca` TEXT, IN `p_estado` VARCHAR(15))   BEGIN
-    INSERT INTO categoria (nomca, estado, fere)
-    VALUES (p_nomca, p_estado, CURRENT_TIMESTAMP());
-END$$
 
-DROP PROCEDURE IF EXISTS `InsertarCliente`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarCliente` (IN `p_numid` CHAR(8), IN `p_nomcli` TEXT, IN `p_apecli` TEXT, IN `p_naci` DATE, IN `p_correo` VARCHAR(30), IN `p_celu` CHAR(9), IN `p_estad` VARCHAR(15))   BEGIN
-    INSERT INTO clientes (numid, nomcli, apecli, naci, correo, celu, estad, fere)
-    VALUES (p_numid, p_nomcli, p_apecli, p_naci, p_correo, p_celu, p_estad, CURRENT_TIMESTAMP());
-END$$
-
-DROP PROCEDURE IF EXISTS `InsertarOrden`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarOrden` (IN `p_user_id` INT, IN `p_user_cli` INT, IN `p_method` TEXT, IN `p_total_products` TEXT, IN `p_total_price` DECIMAL(10,2), IN `p_placed_on` TEXT, IN `p_payment_status` TEXT, IN `p_tipc` TEXT)   BEGIN
-    INSERT INTO orders (user_id, user_cli, method, total_products, total_price, placed_on, payment_status, tipc)
-    VALUES (p_user_id, p_user_cli, p_method, p_total_products, p_total_price, p_placed_on, p_payment_status, p_tipc);
-END$$
-
-DROP PROCEDURE IF EXISTS `InsertarProducto`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarProducto` (IN `p_codba` CHAR(14), IN `p_nomprd` TEXT, IN `p_idcate` INT, IN `p_precio` DECIMAL(10,2), IN `p_stock` INT, IN `p_foto` TEXT, IN `p_venci` DATE, IN `p_esta` VARCHAR(15))   BEGIN
-    INSERT INTO producto (codba, nomprd, idcate, precio, stock, foto, venci, esta, fere)
-    VALUES (p_codba, p_nomprd, p_idcate, p_precio, p_stock, p_foto, p_venci, p_esta, CURRENT_TIMESTAMP());
-END$$
-
-DROP PROCEDURE IF EXISTS `InsertarUsuario`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarUsuario` (IN `p_nombre` VARCHAR(30), IN `p_usuario` VARCHAR(15), IN `p_correo` VARCHAR(30), IN `p_clave` TEXT, IN `p_rol` CHAR(1), IN `p_foto` TEXT, IN `p_estado` CHAR(1))   BEGIN
-    INSERT INTO usuarios (nombre, usuario, correo, clave, rol, foto, estado, fere)
-    VALUES (p_nombre, p_usuario, p_correo, p_clave, p_rol, p_foto, p_estado, CURRENT_TIMESTAMP());
-END$$
-
-DELIMITER ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `cart`
@@ -615,3 +580,9 @@ COMMIT;
 
 ALTER TABLE usuarios
 ADD CONSTRAINT unique_correo UNIQUE (correo);
+
+
+
+
+
+

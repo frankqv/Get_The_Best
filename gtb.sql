@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2024 at 08:51 AM
+-- Generation Time: Mar 21, 2024 at 08:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -133,10 +133,12 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`idcate`, `nomca`, `estado`, `fere`) VALUES
-(1, 'Categoria1', 'Activo', '2024-03-15 08:27:45'),
-(2, 'Categoria2', 'Activo', '2024-03-15 08:27:46'),
-(3, 'Categoria3', 'Inactivo', '2024-03-15 08:27:46'),
-(4, 'Categoria4', 'Activo', '2024-03-15 08:27:46');
+(1, 'FITNESS', 'Activo', '2024-03-15 08:27:45'),
+(2, 'CROSSFIT', 'Activo', '2024-03-15 08:27:46'),
+(3, 'BOXING', 'Activo', '2024-03-15 08:27:46'),
+(4, 'ENDURANCE', 'Activo', '2024-03-15 08:27:46'),
+(5, 'YOGA', 'Inactivo', '2024-03-21 18:58:56'),
+(6, 'CARDIO', 'Activo', '2024-03-21 18:59:10');
 
 -- --------------------------------------------------------
 
@@ -341,11 +343,11 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idprod`, `codba`, `nomprd`, `idcate`, `precio`, `stock`, `foto`, `venci`, `esta`, `fere`) VALUES
-(1, '12345678901234', 'Producto1', 1, 10000.00, 1000, 'producto1.jpg', '2024-12-31', 'Activo', '2024-03-15 08:27:45'),
-(2, '56789012340123', 'Producto2', 2, 15000.00, 50, 'producto2.jpg', '2025-06-30', 'Activo', '2024-03-15 08:27:46'),
-(3, '67890123451234', 'Producto3', 3, 25000.00, 26, 'producto3.jpg', '2025-12-31', 'Activo', '2024-03-15 08:27:46'),
-(4, '78901234562345', 'Producto4', 1, 12500.00, 80, 'producto4.jpg', '2024-10-31', 'Inactivo', '2024-03-15 08:27:46'),
-(5, '89012345673456', 'creatina 1Kg', 4, 18000.00, 59, '643826.jpg', '2024-08-31', 'Activo', '2024-03-15 08:27:46');
+(1, '12345678901234', 'Banda elastica', 1, 10000.00, 1000, '115365.jpg', '2024-12-31', 'Activo', '2024-03-15 08:27:45'),
+(2, '56789012340123', ' Rodillera Elastica De Compresión Deportiva', 2, 15000.00, 50, '341946.jpg', '2025-06-30', 'Activo', '2024-03-15 08:27:46'),
+(3, '67890123451234', 'Vendas de boxeo', 3, 25000.00, 26, '680339.jpg', '2025-12-31', 'Activo', '2024-03-15 08:27:46'),
+(4, '78901234562345', 'Banda elastica', 1, 12500.00, 80, '579718.jpg', '2024-10-31', 'Activo', '2024-03-15 08:27:46'),
+(5, '89012345673456', 'creatina 1Kg', 4, 18000.00, 59, '956303.jpg', '2024-08-31', 'Activo', '2024-03-15 08:27:46');
 
 -- --------------------------------------------------------
 
@@ -556,7 +558,7 @@ ALTER TABLE `cart_compra`
 -- AUTO_INCREMENT for table `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idcate` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idcate` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `clientes`

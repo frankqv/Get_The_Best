@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `gtb`
+-- Database: `gtb2`
 --
-CREATE DATABASE IF NOT EXISTS `gtb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `gtb`;
+CREATE DATABASE IF NOT EXISTS `gtb2` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `gtb2`;
 
 DELIMITER $$
 --

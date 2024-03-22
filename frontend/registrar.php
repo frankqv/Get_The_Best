@@ -2,7 +2,7 @@
 // Verificar si se han recibido los datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Incluir el archivo de conexión a la base de datos
-    require_once "C:/xampp/htdocs/gtb/backend/bd/ctconex.php";
+    require_once "../backend/bd/ctconex.php";
 
     // Obtener los datos del formulario
     $nombre = $_POST["nombre"];

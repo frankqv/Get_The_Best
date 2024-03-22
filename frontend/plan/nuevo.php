@@ -3,7 +3,7 @@ ob_start();
      session_start();
     
     if(!isset($_SESSION['rol']) || $_SESSION['rol'] != 1){
-    header('location: ../erro404.php');
+    header('../erro404.php');
   }
 ?>
 <?php if(isset($_SESSION['id'])) { ?>
@@ -375,6 +375,6 @@ ob_start();
 
 
 <?php }else{ 
-    header('Location: ../erro404.php');
+    header('../erro404.php');
  } ?>
  <?php ob_end_flush(); ?>     

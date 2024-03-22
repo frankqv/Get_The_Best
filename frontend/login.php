@@ -1,9 +1,9 @@
 <?php
 session_start();
     if (isset($_SESSION['id'])){
-        header('Location: administrador/escritorio.php');
+        header('administrador/escritorio.php');
     }elseif (isset($_SESSION['id'])){
-        header('Location: cliente/escritorio.php');
+        header('cliente/escritorio.php');
     }
     include_once '../backend/php/ctlogx.php'
  ?>

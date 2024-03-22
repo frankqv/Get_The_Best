@@ -3,7 +3,7 @@ ob_start();
     session_start();
     // Verificar si no hay sesión o el rol no es 1 ni 2
     if (!isset($_SESSION['rol']) || ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2)) {
-        header('location: ../erro404.php');
+        header('../erro404.php');
         exit; 
     }
 ?>
@@ -376,6 +376,6 @@ if($sentencia){
 
 
 <?php }else{ 
-    header('Location: ../erro404.php');
+    header('../erro404.php');
  } ?>
  <?php ob_end_flush(); ?>     

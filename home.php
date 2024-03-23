@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="estilo.css">
-    <title>GET THE BEST</title>
+    <title>GTB EXPERIENCE</title>
     <link rel="icon" type="image/png" href="/backend/img/favicon.png">
 
     <!--Stypes backend/img/favicon.png-->
@@ -28,7 +28,7 @@
     <!-- MENU -->
     <div class="contenedor-header">
         <header>
-            <h1><span class="txtRojo">GET</span> THE BEST</h1>
+            <h1><span class="txtRojo">GTB</span>EXPERIENCE</h1>
             <nav id="nav">
                 <a href="#inicio" onclick="seleccionar()">inicio</a>
                 <a href="#nosotros" onclick="seleccionar()">Nosotros</a>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <p class="p-especial">Building your body!</p>
-                <p>Somo GET THE BEST una compañia enfocada a cuidar de tu salud fisica y mental mediante el entrenamiento fisico, no solo nos importa que estes bien tambien nos importa que te sientas bien.</p>
+                <p>Somo GET THE BEST EXPERIENCE una compañia enfocada a cuidar de tu salud fisica y mental mediante el entrenamiento fisico, no solo nos importa que estes bien tambien nos importa que te sientas bien.</p>
             </div>
         </div>
         <hr>
@@ -135,7 +135,7 @@
                         </div>
                     </div>
                     <p class="p-especial">Nos adaptamos a tus gustos.</p>
-                    <p>En GET THE BEST contamos con una gran variedad de deportes los cuales podras practicar ya sea en clases personalizadas o en grupo, no todo tiene que ser siempre maquinas</p>
+                    <p>En GET THE BEST EXPERIENCE contamos con una gran variedad de deportes los cuales podras practicar ya sea en clases personalizadas o en grupo, no todo tiene que ser siempre maquinas</p>
                 </div>
                 <div class="col">
                     <img src="img/servicios.png" alt="">
@@ -202,7 +202,7 @@
                 <ul>
                     <li><span>BAÑO</span> - Contamos con baños para todos nuestros clientes y visitantes, para que siempre puedas estar comodo</li>
                     <li><span>WIFI GRATIS</span> - Si eres parte de nuestros gimnasio podras disfrutar de nuestro potente internet para que puedas entrenar escuchando lo que mas te gusta</li>
-                    <li><span>AGUA GRATIS</span> - Siempre y cuando seas parte de nuestra gran familia GET THE BEST nos encargaremos de darte hidratación para que nunca estes con sed</li>
+                    <li><span>AGUA GRATIS</span> - Siempre y cuando seas parte de nuestra gran familia GET THE BEST EXPERIENCE nos encargaremos de darte hidratación para que nunca estes con sed</li>
                 </ul>
             </div>
         </div>
@@ -326,7 +326,7 @@
 
     <footer>
         <div class="info">
-            <p>2024 - <span class="txtRojo">GET THE BEST</span> Todos los derechos reservados</p>
+            <p>2024 - <span class="txtRojo">GET THE BEST EXPERIENCE</span> Todos los derechos reservados</p>
             <div class="redes">
                 <a href="#">
                     <i class="fa-brands fa-facebook-f"></i>

@@ -18,52 +18,11 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `gtb2`
+-- Database: `u216286031_gtbe`
 --
-CREATE DATABASE IF NOT EXISTS `gtb2` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `gtb2`;
+CREATE DATABASE IF NOT EXISTS `u216286031_gtbe` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `u216286031_gtbe`;
 
-DELIMITER $$
---
--- Procedures
---
-DROP PROCEDURE IF EXISTS `ActualizarEstadoCliente`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarEstadoCliente` (IN `idcliente` INT, IN `nuevo_estado` VARCHAR(15))   BEGIN
-    UPDATE clientes
-    SET estad = nuevo_estado
-    WHERE idclie = idcliente;
-END$$
-
-DROP PROCEDURE IF EXISTS `ActualizarStockProducto`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarStockProducto` (IN `id_producto` INT, IN `cantidad` INT)   BEGIN
-    UPDATE producto
-    SET stock = stock + cantidad
-    WHERE idprod = id_producto;
-END$$
-
-DROP PROCEDURE IF EXISTS `CalcularTotalCompra`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CalcularTotalCompra` (IN `id_compra` INT, OUT `total` DECIMAL(10,2))   BEGIN
-    SELECT SUM(price * quantity) INTO total
-    FROM cart_compra
-    WHERE idcarco = id_compra;
-END$$
-
-DROP PROCEDURE IF EXISTS `InsertarCliente`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarCliente` (IN `numid` CHAR(8), IN `nomcli` TEXT, IN `apecli` TEXT, IN `naci` DATE, IN `correo` VARCHAR(30), IN `celu` CHAR(9), IN `estad` VARCHAR(15))   BEGIN
-    INSERT INTO clientes (numid, nomcli, apecli, naci, correo, celu, estad, fere)
-    VALUES (numid, nomcli, apecli, naci, correo, celu, estad, CURRENT_TIMESTAMP());
-END$$
-
-DROP PROCEDURE IF EXISTS `ObtenerProductosPorCategoria`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerProductosPorCategoria` (IN `id_categoria` INT)   BEGIN
-    SELECT *
-    FROM producto
-    WHERE idcate = id_categoria;
-END$$
-
-DELIMITER ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `cart`

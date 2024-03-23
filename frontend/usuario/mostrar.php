@@ -47,7 +47,7 @@ ob_start();
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3><img src="../../backend/img/favicon.png" class="img-fluid"/><span>GET THE BEST</span></h3>
+                <h3><img src="../../backend/img/favicon.png" class="img-fluid"/><span>GET THE BEST EXPERIENCE</span></h3>
             </div>
             <ul class="list-unstyled components">
                <li  class="">

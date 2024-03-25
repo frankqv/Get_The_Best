@@ -111,8 +111,8 @@ if (!isset($_SESSION['rol']) || ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2)
                                                     <div class="form-group">
                                                         <label for="rol">Rol<span class="text-danger">*</span></label>
                                                         <select class="form-control" name="txtrol" required>
-                                                            <option value="1" <?php echo ($f->rol == 1) ? 'selected' : ''; ?>>Rol 1</option>
-                                                            <option value="2" <?php echo ($f->rol == 2) ? 'selected' : ''; ?>>Rol 2</option>
+                                                            <option value="1" <?php echo ($f->rol == 1) ? 'selected' : ''; ?>>Rol 1 Administrador</option>
+                                                            <option value="2" <?php echo ($f->rol == 2) ? 'selected' : ''; ?>>Rol 2 Cliente</option>
                                                             <!-- Agrega más opciones de roles según sea necesario -->
                                                         </select>
                                                     </div>
